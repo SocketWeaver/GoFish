@@ -6,8 +6,8 @@ using UnityEngine.U2D;
 namespace GoFish
 {
     /// <summary>
-    /// Card value is cleared when face-down
-    /// To disable a card value, call SetCardValue(byte) to assign the Rank and the Suit to the card, then call SetFaceUp(true)
+    /// SetFaceUp(false) clears card's face value
+    /// To display a card's value, call SetCardValue(byte) to assign the Rank and the Suit to the card, then call SetFaceUp(true)
     /// </summary>
     public class Card : MonoBehaviour
     {
