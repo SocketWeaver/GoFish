@@ -1,4 +1,4 @@
-# GoFish
+# Go Fish
 YouTube Video Tutorial (In progress...)
 
 ## Requirements
