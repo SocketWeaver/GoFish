@@ -2418,7 +2418,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   State: 0
-  Debugging: 1
+  Debugging: 0
   PopoverBackground: {fileID: 765519401}
   EnterNicknamePopover: {fileID: 390475963}
   WaitForOpponentPopover: {fileID: 2049904259}
