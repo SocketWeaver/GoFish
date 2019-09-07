@@ -30,6 +30,33 @@ namespace GoFish
         private void Start()
         {
             // disable all online UI elements
+            HideAllPopover();
+        }
+
+        void ShowEnterNicknamePopover()
+        {
+            PopoverBackground.SetActive(true);
+            EnterNicknamePopover.SetActive(true);
+        }
+
+        void ShowJoinedRoomPopover()
+        {
+            EnterNicknamePopover.SetActive(false);
+            WaitForOpponentPopover.SetActive(true);
+            StartRoomButton.SetActive(false);
+            Player1Portrait.SetActive(false);
+            Player2Portrait.SetActive(false);
+        }
+
+        void ShowReadyToStartUI()
+        {
+            StartRoomButton.SetActive(true);
+            Player1Portrait.SetActive(true);
+            Player2Portrait.SetActive(true);
+        }
+
+        void HideAllPopover()
+        {
             PopoverBackground.SetActive(false);
             EnterNicknamePopover.SetActive(false);
             WaitForOpponentPopover.SetActive(false);
@@ -54,8 +81,7 @@ namespace GoFish
         public void OnOnlineClicked()
         {
             Debug.Log("OnOnlineClicked");
-            PopoverBackground.SetActive(true);
-            EnterNicknamePopover.SetActive(true);
+            ShowEnterNicknamePopover();
         }
 
         /// <summary>
@@ -64,15 +90,13 @@ namespace GoFish
         public void OnCancelClicked()
         {
             Debug.Log("OnCancelClicked");
-            // TODO: leave room.
+
             if (State == LobbyState.JoinedRoom)
             {
-
+                // TODO: leave room.
             }
 
-            PopoverBackground.SetActive(false);
-            EnterNicknamePopover.SetActive(false);
-            WaitForOpponentPopover.SetActive(false);
+            HideAllPopover();
         }
 
         /// <summary>
@@ -81,9 +105,14 @@ namespace GoFish
         public void OnStartRoomClicked()
         {
             Debug.Log("OnStartRoomClicked");
+            // players are ready to player now.
             if (Debugging)
             {
                 SceneManager.LoadScene("GameScene");
+            }
+            else
+            {
+                // TODO: Start room
             }
         }
 
@@ -97,11 +126,8 @@ namespace GoFish
 
             if (Debugging)
             {
-                EnterNicknamePopover.SetActive(false);
-                WaitForOpponentPopover.SetActive(true);
-                StartRoomButton.SetActive(true);
-                Player1Portrait.SetActive(true);
-                Player2Portrait.SetActive(true);
+                ShowJoinedRoomPopover();
+                ShowReadyToStartUI();
             }
             else
             {
