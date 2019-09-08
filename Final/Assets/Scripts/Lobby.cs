@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using SWNetwork;
 
 namespace GoFish
 {
@@ -30,12 +31,170 @@ namespace GoFish
         private void Start()
         {
             // disable all online UI elements
+            HideAllPopover();
+            NetworkClient.Lobby.OnLobbyConnectedEvent += OnLobbyConnected;
+            NetworkClient.Lobby.OnNewPlayerJoinRoomEvent += OnNewPlayerJoinRoomEvent;
+        }
+
+        private void OnDestroy()
+        {
+            if (NetworkClient.Lobby != null)
+            {
+                NetworkClient.Lobby.OnLobbyConnectedEvent -= OnLobbyConnected;
+                NetworkClient.Lobby.OnNewPlayerJoinRoomEvent -= OnNewPlayerJoinRoomEvent;
+            }
+        }
+
+        void ShowEnterNicknamePopover()
+        {
+            PopoverBackground.SetActive(true);
+            EnterNicknamePopover.SetActive(true);
+        }
+
+        void ShowJoinedRoomPopover()
+        {
+            EnterNicknamePopover.SetActive(false);
+            WaitForOpponentPopover.SetActive(true);
+            StartRoomButton.SetActive(false);
+            Player1Portrait.SetActive(false);
+            Player2Portrait.SetActive(false);
+        }
+
+        void ShowReadyToStartUI()
+        {
+            StartRoomButton.SetActive(true);
+            Player1Portrait.SetActive(true);
+            Player2Portrait.SetActive(true);
+        }
+
+        void HideAllPopover()
+        {
             PopoverBackground.SetActive(false);
             EnterNicknamePopover.SetActive(false);
             WaitForOpponentPopover.SetActive(false);
             StartRoomButton.SetActive(false);
             Player1Portrait.SetActive(false);
             Player2Portrait.SetActive(false);
+        }
+
+		//****************** Matchmaking *********************//
+        void Checkin()
+		{
+			NetworkClient.Instance.CheckIn(nickname, (bool successful, string error) =>
+			{
+				if (!successful)
+				{
+					Debug.LogError(error);
+				}
+			});
+		}
+
+        void RegisterToTheLobbyServer()
+        {
+            NetworkClient.Lobby.Register(nickname, (successful, reply, error) => {
+                if (successful)
+                {
+                    Debug.Log("Lobby registered " + reply);
+                    if (string.IsNullOrEmpty(reply.roomId))
+                    {
+                        JoinOrCreateRoom();
+                    }
+                    else if (reply.started)
+                    {
+                        State = LobbyState.JoinedRoom;
+                        ConnectToRoom();
+                    }
+                    else
+                    {
+                        State = LobbyState.JoinedRoom;
+                        ShowJoinedRoomPopover();
+                        GetPlayersInTheRoom();
+                    }
+                }
+                else
+                {
+                    Debug.Log("Lobby failed to register " + reply);
+                }
+            });
+        }
+
+        void JoinOrCreateRoom()
+        {
+            NetworkClient.Lobby.JoinOrCreateRoom(false, 2, 0, (successful, reply, error) => {
+                if (successful)
+                {
+                    Debug.Log("Joined or created room " + reply);
+                    State = LobbyState.JoinedRoom;
+                    ShowJoinedRoomPopover();
+                    GetPlayersInTheRoom();
+                }
+                else
+                {
+                    Debug.Log("Failed to join or create room " + error);
+                }
+            });
+        }
+
+        void GetPlayersInTheRoom()
+        {
+            NetworkClient.Lobby.GetPlayersInRoom((successful, reply, error) => {
+                if (successful)
+                {
+                    Debug.Log("Got players " + reply);
+                    if(reply.players.Count == 1)
+                    {
+                        Player1Portrait.SetActive(true);
+                    }
+                    else
+                    {
+                        Player1Portrait.SetActive(true);
+                        Player2Portrait.SetActive(true);
+
+                        if (NetworkClient.Lobby.IsOwner)
+                        {
+                            ShowReadyToStartUI();
+                        }
+                    }
+                }
+                else
+                {
+                    Debug.Log("Failed to get players " + error);
+                }
+            });
+        }
+
+        void LeaveRoom()
+        {
+            NetworkClient.Lobby.LeaveRoom((successful, error) => {
+                if (successful)
+                {
+                    Debug.Log("Left room");
+                    State = LobbyState.Default;
+                }
+                else
+                {
+                    Debug.Log("Failed to leave room " + error);
+                }
+            });
+        }
+
+        void ConnectToRoom()
+        {
+            // TODO: connect to the game server of the room.
+        }
+
+        //****************** Lobby events *********************//
+        void OnLobbyConnected()
+		{
+            RegisterToTheLobbyServer();
+		}
+
+        void OnNewPlayerJoinRoomEvent(SWJoinRoomEventData eventData)
+        {
+            if (NetworkClient.Lobby.IsOwner)
+            {
+                ShowReadyToStartUI();
+            }
         }
 
         //****************** UI event handlers *********************//
@@ -54,8 +213,7 @@ namespace GoFish
         public void OnOnlineClicked()
         {
             Debug.Log("OnOnlineClicked");
-            PopoverBackground.SetActive(true);
-            EnterNicknamePopover.SetActive(true);
+            ShowEnterNicknamePopover();
         }
 
         /// <summary>
@@ -64,15 +222,14 @@ namespace GoFish
         public void OnCancelClicked()
         {
             Debug.Log("OnCancelClicked");
-            // TODO: leave room.
+
             if (State == LobbyState.JoinedRoom)
             {
-
+                // TODO: leave room.
+                LeaveRoom();
             }
 
-            PopoverBackground.SetActive(false);
-            EnterNicknamePopover.SetActive(false);
-            WaitForOpponentPopover.SetActive(false);
+            HideAllPopover();
         }
 
         /// <summary>
@@ -81,9 +238,14 @@ namespace GoFish
         public void OnStartRoomClicked()
         {
             Debug.Log("OnStartRoomClicked");
+            // players are ready to player now.
             if (Debugging)
             {
                 SceneManager.LoadScene("GameScene");
+            }
+            else
+            {
+                // TODO: Start room
             }
         }
 
@@ -97,15 +259,13 @@ namespace GoFish
 
             if (Debugging)
             {
-                EnterNicknamePopover.SetActive(false);
-                WaitForOpponentPopover.SetActive(true);
-                StartRoomButton.SetActive(true);
-                Player1Portrait.SetActive(true);
-                Player2Portrait.SetActive(true);
+                ShowJoinedRoomPopover();
+                ShowReadyToStartUI();
             }
             else
             {
-                //TODO: Use nickname as player custom id to check into SocketWeaver.
+				//Use nickname as player custom id to check into SocketWeaver.
+				Checkin();
             }
         }
     }

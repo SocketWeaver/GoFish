@@ -1,0 +1,1289 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SWNetwork</name>
+    </assembly>
+    <members>
+        <member name="T:SWNetwork.SWLobbyError">
+            <summary>
+            The error that occurred when a Lobby API operation fails.
+            </summary>
+        </member>
+        <member name="T:SWNetwork.SWLobbyFilterData">
+            <summary>
+            The filter data object.
+            </summary>
+        </member>
+        <member name="M:SWNetwork.SWLobbyFilterData.AddFilter(System.String,System.String)">
+            <summary>
+            Adds a string typed index filter with the specified name, and value.
+            </summary>
+            <param name="name">Name.</param>
+            <param name="value">Value.</param>
+        </member>
+        <member name="M:SWNetwork.SWLobbyFilterData.AddFilter(System.String,System.Int32,System.Int32)">
+            <summary>
+            Adds a int typed index filter with the specified name, minimum value, and maximum value.
+            </summary>
+            <param name="name">Name.</param>
+            <param name="min">Minimum.</param>
+            <param name="max">Max.</param>
+        </member>
+        <member name="T:SWNetwork.SWLobbyIndexData">
+            <summary>
+            The index data object of a room.
+            </summary>
+        </member>
+        <member name="M:SWNetwork.SWLobbyIndexData.AddIndex(System.String,System.String)">
+            <summary>
+            Adds a string typed index with the specified name, and value.
+            </summary>
+            <param name="name">Name of the Index to add.</param>
+            <param name="value">Value of the Index to add.</param>
+        </member>
+        <member name="M:SWNetwork.SWLobbyIndexData.AddIndex(System.String,System.Int32)">
+            <summary>
+            Adds a int typed index with the specified name, and value.
+            </summary>
+            <param name="name">Name of the Index to add.</param>
+            <param name="value">Value of the Index to add.</param>
+        </member>
+        <member name="T:SWNetwork.SWRoom">
+            <summary>
+            Data model of a room.
+            </summary>
+        </member>
+        <member name="F:SWNetwork.SWRoom.id">
+            <summary>
+            ID of the room.
+            </summary>
+        </member>
+        <member name="F:SWNetwork.SWRoom.data">
+            <summary>
+            room custom data in string format.
+            </summary>
+        </member>
+        <member name="F:SWNetwork.SWRoom.progressData">
+            <summary>
+            room progress data in string format.
+            </summary>
+        </member>
+        <member name="M:SWNetwork.SWRoom.GetCustomData``1">
+            <summary>
+            Get the deserialized room custom data.
+            </summary>
+            <returns>The deserialized room custom data.</returns>
+            <typeparam name="T">The 1st type parameter.</typeparam>
+        </member>
+        <member name="M:SWNetwork.SWRoom.GetCustomDataString">
+            <summary>
+            Gets the room custom data in string format.
+            </summary>
+            <returns>The room custom data in string format.</returns>
+        </member>
+        <member name="M:SWNetwork.SWRoom.GetProgressData``1">
+            <summary>
+            Get the deserialized room progress data.
+            </summary>
+            <returns>The deserialized room progress data.</returns>
+            <typeparam name="T">The 1st type parameter.</typeparam>
+        </member>
+        <member name="M:SWNetwork.SWRoom.GetProgressDataString">
+            <summary>
+            Gets the room progress data in string format.
+            </summary>
+            <returns>The room progress data in string format.</returns>
+        </member>
+        <member name="T:SWNetwork.SWPlayer">
+            <summary>
+            The data model of a player.
+            </summary>
+        </member>
+        <member name="F:SWNetwork.SWPlayer.id">
+            <summary>
+            ID of the player.
+            </summary>
+        </member>
+        <member name="F:SWNetwork.SWPlayer.data">
+            <summary>
+            player custom data in string format.
+            </summary>
+        </member>
+        <member name="M:SWNetwork.SWPlayer.GetCustomData``1">
+            <summary>
+            Gets the deserialized player custom data.
+            </summary>
+            <returns>The deserialized player custom data.</returns>
+            <typeparam name="T">The 1st type parameter.</typeparam>
+        </member>
+        <member name="M:SWNetwork.SWPlayer.GetCustomDataString">
+            <summary>
+            Gets the player custom data in string format.
+            </summary>
+            <returns>The  player custom data in string format.</returns>
+        </member>
+        <member name="T:SWNetwork.SWRegisterReply">
+            <summary>
+            The response object of the registration operation.
+            </summary>
+        </member>
+        <member name="F:SWNetwork.SWRegisterReply.roomId">
+            <summary>
+            ID of the player's current room. This value is useful when player disconnected/reconnected to the lobby server. 
+            null if player is not in a room.
+            </summary>
+        </member>
+        <member name="F:SWNetwork.SWRegisterReply.started">
+            <summary>
+            Indicates whether the player's room has started.
+            </summary>
+        </member>
+        <member name="T:SWNetwork.SWJoinRoomReply">
+            <summary>
+            The response object when the join room operation finished successfully.
+            </summary>
+        </member>
+        <member name="F:SWNetwork.SWJoinRoomReply.roomId">
+            <summary>
+            ID of the player's current room.
+            </summary>
+        </member>
+        <member name="F:SWNetwork.SWJoinRoomReply.started">
+            <summary>
+            Indicates whether the player's room has started.
+            </summary>
+        </member>
+        <member name="T:SWNetwork.SWGetRoomFilterReply">
+            <summary>
+            The response object when the filter room operation completes.
+            </summary>
+        </member>
+        <member name="F:SWNetwork.SWGetRoomFilterReply.rooms">
+            <summary>
+            List of rooms in the filter result.
+            </summary>
+        </member>
+        <member name="T:SWNetwork.SWGetRoomReply">
+            <summary>
+            The response object of the get rooms operation.
+            </summary>
+        </member>
+        <member name="F:SWNetwork.SWGetRoomReply.totalPages">
+            <summary>
+            Number of pages of rooms.
+            </summary>
+        </member>
+        <member name="F:SWNetwork.SWGetRoomReply.totalRooms">
+            <summary>
+            Number of rooms.
+            </summary>
+        </member>
+        <member name="F:SWNetwork.SWGetRoomReply.currentIndex">
+            <summary>
+            Current page index.
+            </summary>
+        </member>
+        <member name="F:SWNetwork.SWGetRoomReply.currentPageCount">
+            <summary>
+            Number of rooms in the current page.
+            </summary>
+        </member>
+        <member name="F:SWNetwork.SWGetRoomReply.rooms">
+            <summary>
+            List of rooms in the current page.
+            </summary>
+        </member>
+        <member name="T:SWNetwork.SWGetPlayersReply">
+            <summary>
+            The response object when the get players in room operation finished successfully.
+            </summary>
+        </member>
+        <member name="F:SWNetwork.SWGetPlayersReply.ownerId">
+            <summary>
+            ID of the room owner.
+            </summary>
+        </member>
+        <member name="F:SWNetwork.SWGetPlayersReply.players">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:SWNetwork.SWJoinRoomEventData">
+            <summary>
+            Event Data of the OnNewPlayerJoinRoomEvent
+            </summary>
+        </member>
+        <member name="F:SWNetwork.SWJoinRoomEventData.roomId">
+            <summary>
+            The room identifier.
+            </summary>
+        </member>
+        <member name="F:SWNetwork.SWJoinRoomEventData.newPlayerId">
+            <summary>
+            The new player identifier.
+            </summary>
+        </member>
+        <member name="F:SWNetwork.SWJoinRoomEventData.data">
+            <summary>
+            The data.
+            </summary>
+        </member>
+        <member name="T:SWNetwork.SWLeaveRoomEventData">
+            <summary>
+            Event Data of the OnPlayerLeaveRoomEvent
+            </summary>
+        </member>
+        <member name="F:SWNetwork.SWLeaveRoomEventData.roomId">
+            <summary>
+            The room identifier.
+            </summary>
+        </member>
+        <member name="F:SWNetwork.SWLeaveRoomEventData.leavePlayerIds">
+            <summary>
+            The leave player identifier.
+            </summary>
+        </member>
+        <member name="T:SWNetwork.SWStartRoomEventData">
+            <summary>
+            Event Data of the OnRoomStartingEvent
+            </summary>
+        </member>
+        <member name="T:SWNetwork.SWRoomChangeOwnerEventData">
+            <summary>
+            Event Data of the OnNewRoomOwnerEvent
+            </summary>
+        </member>
+        <member name="T:SWNetwork.SWMessagePlayerEventData">
+            <summary>
+            Event Data of the OnPlayerMessageEvent
+            </summary>
+        </member>
+        <member name="F:SWNetwork.SWMessagePlayerEventData.playerId">
+            <summary>
+            The player identifier.
+            </summary>
+        </member>
+        <member name="F:SWNetwork.SWMessagePlayerEventData.targetPlayerId">
+            <summary>
+            The target player identifier.
+            </summary>
+        </member>
+        <member name="F:SWNetwork.SWMessagePlayerEventData.data">
+            <summary>
+            The data.
+            </summary>
+        </member>
+        <member name="T:SWNetwork.SWMessageRoomEventData">
+            <summary>
+            Event Data of the OnRoomMessageEvent
+            </summary>
+        </member>
+        <member name="F:SWNetwork.SWMessageRoomEventData.playerId">
+            <summary>
+            The player identifier.
+            </summary>
+        </member>
+        <member name="F:SWNetwork.SWMessageRoomEventData.roomId">
+            <summary>
+            The room identifier.
+            </summary>
+        </member>
+        <member name="F:SWNetwork.SWMessageRoomEventData.data">
+            <summary>
+            The data.
+            </summary>
+        </member>
+        <member name="T:SWNetwork.SWRoomReadyEventData">
+            <summary>
+            Event Data of the OnRoomReadyEvent
+            </summary>
+        </member>
+        <member name="E:SWNetwork.SWLobby.OnLobbyConnectedEvent">
+            <summary>
+            Invoked when the local player connected to the lobby server.
+            </summary>
+        </member>
+        <member name="E:SWNetwork.SWLobby.OnLobbyDisconnectedEvent">
+            <summary>
+            Invoked when the local player failed to connect to the lobby server.
+            </summary>
+        </member>
+        <member name="E:SWNetwork.SWLobby.OnLobbyReconnectedEvent">
+            <summary>
+            Invoked when the local player reconnected to the lobby server.
+            </summary>
+        </member>
+        <member name="E:SWNetwork.SWLobby.OnPlayerMessageEvent">
+            <summary>
+            Invoked when a new player message is received.
+            </summary>
+        </member>
+        <member name="E:SWNetwork.SWLobby.OnRoomCustomDataChangeEvent">
+            <summary>
+            Invoked when the room custom data is updated
+            </summary>
+        </member>
+        <member name="E:SWNetwork.SWLobby.OnNewPlayerJoinRoomEvent">
+            <summary>
+            Invoked when new players join the local player's room.
+            </summary>
+        </member>
+        <member name="E:SWNetwork.SWLobby.OnPlayerLeaveRoomEvent">
+            <summary>
+            Invoked when players leave the local player's room.
+            </summary>
+        </member>
+        <member name="E:SWNetwork.SWLobby.OnNewRoomOwnerEvent">
+            <summary>
+            Invoked when the room owner is changed.
+            </summary>
+        </member>
+        <member name="E:SWNetwork.SWLobby.OnRoomStartingEvent">
+            <summary>
+            Invoked when the room changes to the Starting _state.
+            Game servers are being prepared for the room.
+            If no available game servers are found, FailedToStartRoomEvent will be invoked.
+            If game servers are prepared, RoomReadyEvent will be invoked.
+            </summary>
+        </member>
+        <member name="E:SWNetwork.SWLobby.OnRoomReadyEvent">
+            <summary>
+            Invoked when the room changes to the Rooms Set _state.
+            Game servers for the room are prepared.
+            Use NetworkClient.Instance.ConnectToRoom(Action) to connect to the game servers.
+            </summary>
+        </member>
+        <member name="E:SWNetwork.SWLobby.OnFailedToStartRoomEvent">
+            <summary>
+            Invoked when the room fails to start.
+            No game servers are available.
+            </summary>
+        </member>
+        <member name="E:SWNetwork.SWLobby.OnRoomMessageEvent">
+            <summary>
+            Invoked when a new room message is received.
+            </summary>
+        </member>
+        <member name="E:SWNetwork.SWLobby.OnKickedEvent">
+            <summary>
+            Invoked when the player is kicked from the room by the room owner.
+            </summary>
+        </member>
+        <member name="M:SWNetwork.SWLobby.Reconnect">
+            <summary>
+            Reconnect to the lobby server
+            </summary>
+        </member>
+        <member name="P:SWNetwork.SWLobby.PlayerId">
+            <summary>
+            Local player's Id
+            </summary>
+            <value>The player identifier.</value>
+        </member>
+        <member name="P:SWNetwork.SWLobby.IsOwner">
+            <summary>
+            Gets a value indicating whether the local player is the room owner.
+            </summary>
+            <value><c>true</c> if is owner; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:SWNetwork.SWLobby.RoomData">
+            <summary>
+            Room Information. You need to call GetRoomCustomData() to load the room information. null if the local player is not in a room.
+            </summary>
+            <value>The room data.</value>
+        </member>
+        <member name="P:SWNetwork.SWLobby.RoomId">
+            <summary>
+            Local player's roomId. null if local player is not in a room.
+            </summary>
+            <value>The room identifier.</value>
+        </member>
+        <member name="M:SWNetwork.SWLobby.Register(System.Object,System.Action{System.Boolean,SWNetwork.SWRegisterReply,SWNetwork.SWLobbyError})">
+            <summary>
+            Called by players to begin an asynchronous operation to register to the Lobby and the player using the specified string as custom data.
+            </summary>
+            <param name="customData">The string used as the player's custom data.</param>
+            <param name="callback">The method to invoke when the registration operation is complete.</param>
+        </member>
+        <member name="M:SWNetwork.SWLobby.Register(System.Action{System.Boolean,SWNetwork.SWRegisterReply,SWNetwork.SWLobbyError})">
+            <summary>
+            Called by players to begin an asynchronous operation to register to the Lobby.
+            </summary>
+            <param name="callback">The method to invoke when the registration operation is complete.</param>
+        </member>
+        <member name="M:SWNetwork.SWLobby.Register(System.String,System.Action{System.Boolean,SWNetwork.SWRegisterReply,SWNetwork.SWLobbyError})">
+            <summary>
+            Called by players to begin an asynchronous operation to register to the Lobby and the player using the specified object as custom data.
+            </summary>
+            <param name="customData">The serializable object used as the player's custom data.</param>
+            <param name="callback">The method to invoke when the registration operation is complete.</param>
+        </member>
+        <member name="M:SWNetwork.SWLobby.GetRooms(System.Int32,System.Int32,System.Action{System.Boolean,SWNetwork.SWGetRoomReply,SWNetwork.SWLobbyError})">
+            <summary>
+            Called by players to begin an asynchronous operation to get rooms from the Lobby server using the specified pageIndex and pageRowCount.
+            </summary>
+            <param name="pageIndex">Index of the page to get.</param>
+            <param name="pageRowCount">Number of rooms in the page.</param>
+            <param name="callback">The method to invoke when the get rooms operation is complete.</param>
+        </member>
+        <member name="M:SWNetwork.SWLobby.KickPlayers(System.Collections.Generic.List{System.String},System.Action{System.Boolean,SWNetwork.SWLobbyError})">
+            <summary>
+            Kicks the players.
+            Only the room owners can kick players
+            </summary>
+            <param name="playersToKick">Players to kick.</param>
+            <param name="callback">Callback.</param>
+        </member>
+        <member name="M:SWNetwork.SWLobby.CreateRoom(System.Boolean,System.Int32,System.Action{System.Boolean,System.String,SWNetwork.SWLobbyError})">
+            <summary>
+            Called by players to begin an asynchronous operation to create a room and using the specified wantRT, and PlayerLimit.
+            </summary>
+            <param name="wantRT">Indicates if the room requires RealTime service.</param>
+            <param name="playerLimit">Indicates the maximum number of players can join the room.</param>
+            <param name="callback">The method to invoke when the create room operation is complete.</param>
+        </member>
+        <member name="M:SWNetwork.SWLobby.CreateRoom(System.Object,System.Boolean,System.Int32,System.Action{System.Boolean,System.String,SWNetwork.SWLobbyError})">
+            <summary>
+            Called by players to begin an asynchronous operation to create a room and using the specified serializable object room custom data, wantRT, and PlayerLimit.
+            </summary>
+            <param name="customData">The serializable object room custom data.</param>
+            <param name="wantRT">Indicates if the room requires RealTime service.</param>
+            <param name="playerLimit">Indicates the maximum number of players can join the room.</param>
+            <param name="callback">The method to invoke when the create room operation is complete.</param>
+        </member>
+        <member name="M:SWNetwork.SWLobby.CreateRoom(System.String,System.Boolean,System.Int32,System.Action{System.Boolean,System.String,SWNetwork.SWLobbyError})">
+            <summary>
+            Called by players to begin an asynchronous operation to create a room and using the specified string room custom data, wantRT, and PlayerLimit.
+            </summary>
+            <param name="customData">The string room custom data.</param>
+            <param name="wantRT">Indicates if the room requires RealTime service.</param>
+            <param name="playerLimit">Indicates the maximum number of players can join the room.</param>
+            <param name="callback">The method to invoke when the create room operation is complete.</param>
+        </member>
+        <member name="M:SWNetwork.SWLobby.CreateRoom(System.Object,System.Boolean,System.Int32,SWNetwork.SWLobbyIndexData,System.Action{System.Boolean,System.String,SWNetwork.SWLobbyError})">
+            <summary>
+            Called by players to begin an asynchronous operation to create a room and using the specified serializable object room custom data, wantRT, PlayerLimit, and index data.
+            </summary>
+            <param name="customData">The serializable object room custom data.</param>
+            <param name="wantRT">Indicates whether the room requires RealTime service.</param>
+            <param name="playerLimit">The maximum number of players can join the room.</param>
+            <param name="indexData">The index data of the room.</param>
+            <param name="callback">The method to invoke when the create room operation is complete.</param>
+        </member>
+        <member name="M:SWNetwork.SWLobby.CreateRoom(System.String,System.Boolean,System.Int32,SWNetwork.SWLobbyIndexData,System.Action{System.Boolean,System.String,SWNetwork.SWLobbyError})">
+            <summary>
+            Called by players to begin an asynchronous operation to create a room and using the specified string room custom data, wantRT, PlayerLimit, and index data.
+            </summary>
+            <param name="customData">The string room custom data.</param>
+            <param name="wantRT">Indicates whether the room requires RealTime service.</param>
+            <param name="playerLimit">The maximum number of players can join the room.</param>
+            <param name="indexData">The index data of the room.</param>
+            <param name="callback">The method to invoke when the create room operation is complete.</param>
+        </member>
+        <member name="M:SWNetwork.SWLobby.CreateRoom(System.Object,System.Boolean,System.Int32,System.Int32,System.Boolean,SWNetwork.SWLobbyIndexData,System.Action{System.Boolean,System.String,SWNetwork.SWLobbyError})">
+            <summary>
+            Called by players to begin an asynchronous operation to create a room and using the specified serializable object room custom data, wantRT,  PlayerLimit, PlayerTimeToLive, isPrivate, and index data.
+            </summary>
+            <param name="customData">The serializable object room custom data.</param>
+            <param name="wantRT">Indicates whether the room requires RealTime service.</param>
+            <param name="playerLimit">The maximum number of players can join the room.</param>
+            <param name="playerTimeToLive">The maximum amount of time a player can stay inactive before been removed from the room.</param>
+            <param name="isPrivate">Indicates whether the room is private.</param>
+            <param name="indexData">The index data of the room.</param>
+            <param name="callback">The method to invoke when the create room operation is complete.</param>
+        </member>
+        <member name="M:SWNetwork.SWLobby.CreateRoom(System.String,System.Boolean,System.Int32,System.Int32,System.Boolean,SWNetwork.SWLobbyIndexData,System.Action{System.Boolean,System.String,SWNetwork.SWLobbyError})">
+            <summary>
+            Called by players to begin an asynchronous operation to create a room and using the specified string room custom data, wantRT,  PlayerLimit, PlayerTimeToLive, isPrivate, and index data.
+            </summary>
+            <param name="customData">The string room custom data.</param>
+            <param name="wantRT">Indicates whether the room requires RealTime service.</param>
+            <param name="playerLimit">The maximum number of players can join the room.</param>
+            <param name="playerTimeToLive">The maximum amount of time a player can stay inactive before been removed from the room</param>
+            <param name="isPrivate">Indicates whether the room is private.</param>
+            <param name="indexData">The index data of the room.</param>
+            <param name="callback">The method to invoke when the create room operation is complete.</param>
+        </member>
+        <member name="M:SWNetwork.SWLobby.MessagePlayer(System.String,System.Object,System.Action{System.Boolean,SWNetwork.SWLobbyError})">
+            <summary>
+            Called by players to begin an asynchronous operation to send message to another player using the specified targetPlayerId and string messageData.
+            </summary>
+            <param name="targetPlayerId">ID of the player to receive the message.</param>
+            <param name="messageData">String message data.</param>
+            <param name="callback">The method to invoke when the message player operation is complete.</param>
+        </member>
+        <member name="M:SWNetwork.SWLobby.MessagePlayer(System.String,System.String,System.Action{System.Boolean,SWNetwork.SWLobbyError})">
+            <summary>
+            Called by players to begin an asynchronous operation to send message to another player using the specified targetPlayerId and serializable object messageData.
+            </summary>
+            <param name="targetPlayerId">ID of the player to receive the message.</param>
+            <param name="messageData">Serializable object message data.</param>
+            <param name="callback">The method to invoke when the message player operation is complete.</param>
+        </member>
+        <member name="M:SWNetwork.SWLobby.MessageRoom(System.Object,System.Action{System.Boolean,SWNetwork.SWLobbyError})">
+            <summary>
+            Called by players to begin an asynchronous operation to send message to other players in the same room using the specified serializable object messageData.
+            </summary>
+            <param name="messageData">Serializable object message data.</param>
+            <param name="callback">The method to invoke when the message room operation is complete.</param>
+        </member>
+        <member name="M:SWNetwork.SWLobby.MessageRoom(System.String,System.Action{System.Boolean,SWNetwork.SWLobbyError})">
+            <summary>
+            Called by players to begin an asynchronous operation to send message to other players in the same room using the specified string messageData.
+            </summary>
+            <param name="messageData">String message data.</param>
+            <param name="callback">The method to invoke when the message room operation is complete.</param>
+        </member>
+        <member name="M:SWNetwork.SWLobby.ChangeRoomCustomData(System.Object,System.Action{System.Boolean,SWNetwork.SWLobbyError})">
+            <summary>
+            Called by room owners to begin an asynchronous operation to change the custom data of their rooms using the specified serializable object.
+            </summary>
+            <param name="customData">Serializable object custom data.</param>
+            <param name="callback">The method to invoke when the change room custom data operation is complete.</param>
+        </member>
+        <member name="M:SWNetwork.SWLobby.ChangeRoomCustomData(System.String,System.Action{System.Boolean,SWNetwork.SWLobbyError})">
+            <summary>
+            Called by room owners to begin an asynchronous operation to change the custom data of their rooms using the specified string.
+            </summary>
+            <param name="customData">String custom data.</param>
+            <param name="callback">The method to invoke when the change room custom data operation is complete.</param>
+        </member>
+        <member name="M:SWNetwork.SWLobby.ChangeRoomProgressData(System.Object,System.Action{System.Boolean,SWNetwork.SWLobbyError})">
+            <summary>
+            Called by room owners to begin an asynchronous operation to change the progress data of their rooms using the specified serializable object.
+            Progress can be used to store room's progress.
+            </summary>
+            <param name="progressData">Serializable object progress data.</param>
+            <param name="callback">The method to invoke when the change room progress data operation is complete.</param>
+        </member>
+        <member name="M:SWNetwork.SWLobby.ChangeRoomProgressData(System.String,System.Action{System.Boolean,SWNetwork.SWLobbyError})">
+            <summary>
+            Called by room owners to begin an asynchronous operation to change the progress data of their rooms using the specified string.
+            </summary>
+            <param name="progressData">String progress data.</param>
+            <param name="callback">The method to invoke when the change room progress data operation is complete.</param>
+        </member>
+        <member name="M:SWNetwork.SWLobby.ChangeRoomSettings(System.Int32,System.Boolean,System.Action{System.Boolean,SWNetwork.SWLobbyError})">
+            <summary>
+            Called by room owners to begin an asynchronous operation to change the settings of their rooms using the specified playerTimeToLive and isPrivate.
+            </summary>
+            <param name="playerTimeToLive">The maximum amount of time a player can stay inactive before been removed from the room.</param>
+            <param name="isPrivate">Indicates whether the room is private.</param>
+            <param name="callback">The method to invoke when the change room settings operation is complete.</param>
+        </member>
+        <member name="M:SWNetwork.SWLobby.GetRoomCustomData(System.Action{System.Boolean,SWNetwork.SWGetRoomCustomDataReply,SWNetwork.SWLobbyError})">
+            <summary>
+            Called by players to begin an asynchronous operation to get the custom data of the local player's current room.
+            </summary>
+            <param name="callback">The method to invoke when the get room custom data operation is complete.</param>
+        </member>
+        <member name="M:SWNetwork.SWLobby.GetRoomProgressData(System.Action{System.Boolean,SWNetwork.SWGetRoomProgressDataReply,SWNetwork.SWLobbyError})">
+            <summary>
+            Called by players to begin an asynchronous operation to get the progress data of the local player's current room.
+            </summary>
+            <param name="callback">The method to invoke when the get room progress data operation is complete.</param>
+        </member>
+        <member name="M:SWNetwork.SWLobby.FilterRoom(SWNetwork.SWLobbyFilterData,System.Byte,System.Action{System.Boolean,SWNetwork.SWGetRoomFilterReply,SWNetwork.SWLobbyError})">
+            <summary>
+            Called by players to begin an asynchronous operation to filter rooms in the Lobby server using the specified filterData and count.
+            </summary>
+            <param name="filterData">The filter data.</param>
+            <param name="count">Number of rooms in the filter result.</param>
+            <param name="callback">The method to invoke when the filter rooms operation is complete.</param>
+        </member>
+        <member name="M:SWNetwork.SWLobby.JoinRoom(System.String,System.Action{System.Boolean,SWNetwork.SWJoinRoomReply,SWNetwork.SWLobbyError})">
+            <summary>
+            Called by players to begin an asynchronous operation to join a room in the Lobby server using the specified roomId. This method allows players to join both private and public rooms.
+            </summary>
+            <param name="roomId">ID of the room to join.</param>
+            <param name="callback">The method to invoke when the join room operation is complete.</param>
+        </member>
+        <member name="M:SWNetwork.SWLobby.JoinRoomRandomly(System.Action{System.Boolean,SWNetwork.SWJoinRoomReply,SWNetwork.SWLobbyError})">
+            <summary>
+            Called by players to begin an asynchronous operation to randomly join a room in the Lobby server. This method allows players to join the public rooms.
+            </summary>
+            <param name="callback">The method to invoke when the join room operation is complete.</param>
+        </member>
+        <member name="M:SWNetwork.SWLobby.JoinOrCreateRoom(System.Boolean,System.Int32,System.Action{System.Boolean,SWNetwork.SWJoinRoomReply,SWNetwork.SWLobbyError})">
+            <summary>
+            Called by players to begin an asynchronous operation to randomly join a room in the Lobby server. If no available rooms were found, The player will create a new room with the specified wantRT, and playerLimit. This method allows players to join the public rooms.
+            </summary>
+            <param name="wantRT">Indicates if the room requires RealTime service.</param>
+            <param name="playerLimit">Indicates the maximum number of players can join the room.</param>
+            <param name="callback">The method to invoke when the join room operation is complete.</param>
+        </member>
+        <member name="M:SWNetwork.SWLobby.JoinOrCreateRoom(System.Boolean,System.Int32,System.Int32,System.Action{System.Boolean,SWNetwork.SWJoinRoomReply,SWNetwork.SWLobbyError})">
+            <summary>
+            Called by players to begin an asynchronous operation to randomly join a room in the Lobby server. If no available rooms were found, The player will create a new room with the specified wantRT, playerLimit, and playerTimeToLive. This method allows players to join the public rooms.
+            </summary>
+            <param name="wantRT">Indicates if the room requires RealTime service.</param>
+            <param name="playerLimit">Indicates the maximum number of players can join the room.</param>
+            <param name="playerTimeToLive">The maximum amount of time a player can stay inactive before been removed from the room.</param>
+            <param name="callback">The method to invoke when the join room operation is complete.</param>
+        </member>
+        <member name="M:SWNetwork.SWLobby.GetPlayersInRoom(System.Action{System.Boolean,SWNetwork.SWGetPlayersReply,SWNetwork.SWLobbyError})">
+            <summary>
+            Called by players to begin an asynchronous operation to get the players information of the local player's current room in the Lobby server.
+            </summary>
+            <param name="callback">The method to invoke when the get players in room operation is complete.</param>
+        </member>
+        <member name="M:SWNetwork.SWLobby.StartRoom(System.Action{System.Boolean,SWNetwork.SWLobbyError})">
+            <summary>
+            Called by room owners to begin an asynchronous operation to start their rooms.
+            </summary>
+            <param name="callback">The method to invoke when the start room operation is complete.</param>
+        </member>
+        <member name="M:SWNetwork.SWLobby.LeaveRoom(System.Action{System.Boolean,SWNetwork.SWLobbyError})">
+            <summary>
+            Called by players to begin an asynchronous operation to leave their rooms.
+            </summary>
+            <param name="callback">The method to invoke when the leave room operation is complete.</param>
+        </member>
+        <member name="P:SWNetwork.NetworkClient.VERSION">
+            <summary>
+            SWNetwork SDK version.
+            </summary>
+            <value>The version.</value>
+        </member>
+        <member name="P:SWNetwork.NetworkClient.Lobby">
+            <summary>
+            Lobby instance.
+            </summary>
+            <value>The lobby.</value>
+        </member>
+        <member name="P:SWNetwork.NetworkClient.IsHost">
+            <summary>
+            Indicates whether the local player is the host of a game.
+            </summary>
+            <value><c>true</c> if is host; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:SWNetwork.NetworkClient.PlayerId">
+            <summary>
+            Local player's Id
+            </summary>
+            <value>The player identifier.</value>
+        </member>
+        <member name="F:SWNetwork.NetworkClient.LoggingLevel">
+            <summary>
+            The logging level.
+            </summary>
+        </member>
+        <member name="P:SWNetwork.NetworkClient.LobbyName">
+            <summary>
+            Gets the name of the lobby.
+            </summary>
+            <value>The name of the lobby.</value>
+        </member>
+        <member name="P:SWNetwork.NetworkClient.NodeRegion1">
+            <summary>
+            Gets the name of the preferred node region.
+            </summary>
+            <value>The node region1.</value>
+        </member>
+        <member name="P:SWNetwork.NetworkClient.NodeRegion2">
+            <summary>
+            Gets the name of the backup node region.
+            </summary>
+            <value>The node region2.</value>
+        </member>
+        <member name="P:SWNetwork.NetworkClient.LobbyPing">
+            <summary>
+            Gets the lobby ping.
+            </summary>
+            <value>The lobby ping.</value>
+        </member>
+        <member name="P:SWNetwork.NetworkClient.GameServerPing">
+            <summary>
+            Gets the game server ping.
+            </summary>
+            <value>The game server ping.</value>
+        </member>
+        <member name="E:SWNetwork.NetworkClient.OnGameServerDisconnectedEvent">
+            <summary>
+            Invoked when the local player failed to receive the heartbeat reply from the room game server in the last 8 seconds.
+            </summary>
+        </member>
+        <member name="M:SWNetwork.NetworkClient.CheckIn(System.Action{System.Boolean,System.String})">
+            <summary>
+            Checking into the SocketWeaver services with a random generated unique player Id.
+            </summary>
+        </member>
+        <member name="M:SWNetwork.NetworkClient.CheckIn(System.String,System.Action{System.Boolean,System.String})">
+            <summary>
+            Checking into the SocketWeaver services with specified player Id. Make sure the playerId is unique.
+            </summary>
+        </member>
+        <member name="M:SWNetwork.NetworkClient.DisconnectFromRoom">
+            <summary>
+            Disconnects the local player from the room game servers.
+            </summary>
+        </member>
+        <member name="M:SWNetwork.NetworkClient.ConnectToRoom(System.Action{System.Boolean})">
+            <summary>
+            Connects the local player to the room game servers.
+            </summary>
+            <param name="callback">Callback.</param>
+        </member>
+        <member name="P:SWNetwork.NetworkClient.LastSpawner">
+            <summary>
+            Last SceneSpawner. Usually, it is the SceneSpawner of the last loaded scene.
+            </summary>
+            <value>The last spawner.</value>
+        </member>
+        <member name="M:SWNetwork.NetworkClient.FindSpawner(System.UInt16)">
+            <summary>
+            Finds the SceneSpawner with the specified SpawnerId.
+            </summary>
+            <returns>The spawner.</returns>
+            <param name="spawnerId">Spawner identifier.</param>
+        </member>
+        <member name="F:SWNetwork.NetworkID.Filterable">
+            <summary>
+            Indicates if the Networked GameObject can be filtered by the RealtimeFilter.
+            </summary>
+        </member>
+        <member name="F:SWNetwork.NetworkID.SendRealtimeData">
+            <summary>
+            Indicates if the Networked GameObject sends Realtime data to the game server.
+            Default value is true. 
+            Only controls the behaviour of non-player Networked GameObjects
+            </summary>
+        </member>
+        <member name="P:SWNetwork.NetworkID.NetworkObjectId">
+            <summary>
+            Gets the network object identifier. Automatically assign at run time.
+            </summary>
+            <value>The network object identifier.</value>
+        </member>
+        <member name="P:SWNetwork.NetworkID.OwnerRemotePlayerId">
+            <summary>
+            Gets the owner remote playerId.
+            </summary>
+            <value>The owner remote player identifier.</value>
+        </member>
+        <member name="P:SWNetwork.NetworkID.OwnerCustomPlayerId">
+            <summary>
+            Gets the owner custom playerId.
+            </summary>
+            <value>The owner custom player identifier.</value>
+        </member>
+        <member name="P:SWNetwork.NetworkID.IsOnline">
+            <summary>
+            Gets a value indicating whether this <see cref="T:SWNetwork.NetworkID"/> is online.
+            </summary>
+            <value><c>true</c> if is online; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:SWNetwork.NetworkID.IsMine">
+            <summary>
+            Find out if local player is the owner of the networked GameObject
+            </summary>
+            <value><c>true</c> if is mine; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:SWNetwork.NetworkID.IsPlayer">
+            <summary>
+            Find out if networked GameObject is player controlled
+            </summary>
+            <value><c>true</c> if is player controlled; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:SWNetwork.NetworkID.IsDynamicallySpawned">
+            <summary>
+            Find out if networked GameObject is dynamically spawned
+            All player controlled networked GameObject has to be dynamically spawned
+            </summary>
+            <value><c>true</c> if is dynamically spawned; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:SWNetwork.NetworkID.IsHost">
+            <summary>
+            Find out if the networked GameObject is owned by the room host
+            </summary>
+            <value><c>true</c> if is owned by the host; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="M:SWNetwork.NetworkID.Destroy(System.Single)">
+            <summary>
+            Destroies the networked GameObject across the network with the specified delay time.
+            </summary>
+        </member>
+        <member name="M:SWNetwork.NetworkID.DestroyFixedNetworkedGameObject">
+            <summary>
+            Destroies the fixed networked game object.
+            </summary>
+        </member>
+        <member name="F:SWNetwork.RealtimeFilter.RangeBuffer">
+            <summary>
+            The range buffer. Added to the far clipping plane of the set camera to determine the detection range.
+            </summary>
+        </member>
+        <member name="F:SWNetwork.RealtimeFilter.VerticalSizeBuffer">
+            <summary>
+            The vertical size buffer. Added to the vertical orthographic size of the set camera to determine the vertical detection size.
+            </summary>
+        </member>
+        <member name="F:SWNetwork.RealtimeFilter.HorizontalSizeBuffer">
+            <summary>
+            The horizontal size buffer. Added to the horizontal orthographic size of the set camera to determine the horizontal detection size.
+            </summary>
+        </member>
+        <member name="F:SWNetwork.RealtimeFilter.FOVAngleBuffer">
+            <summary>
+            The FOV Angle buffer. Added to the field of view angle of the set camera. 
+            </summary>
+        </member>
+        <member name="F:SWNetwork.RealtimeFilter.FirstPersonDetectionRange">
+            <summary>
+            Useful for proximity detection. Nearby Networked GameObjects that are not visible to the set camera will still be treated as interested.
+            </summary>
+        </member>
+        <member name="F:SWNetwork.RealtimeFilter.SimplifiedCalculation">
+            <summary>
+            Use simplified calculation.
+            </summary>
+        </member>
+        <member name="P:SWNetwork.RealtimeFilter.TargetCamera">
+            <summary>
+            Gets or sets the target camera.
+            Make sure to call RecalculateFilterWithCameraSettings when you change the target camera.
+            </summary>
+            <value>The target camera.</value>
+        </member>
+        <member name="M:SWNetwork.RealtimeFilter.RecalculateFilterWithCameraSettings">
+            <summary>
+            Recalculates the filter parameters using the settings on the set camera.
+            Call thie method when you change the Target Camera.
+            </summary>
+        </member>
+        <member name="M:SWNetwork.SWRemoteEventAgent.Invoke(System.String)">
+            <summary>
+            Invoke the event with the specified eventName.
+            </summary>
+            <param name="eventName">Event name.</param>
+        </member>
+        <member name="M:SWNetwork.SWRemoteEventAgent.Invoke(System.String,SWNetwork.SWNetworkMessage)">
+            <summary>
+            Invoke the event with the specified eventName and msg.
+            </summary>
+            <param name="eventName">Event name.</param>
+            <param name="msg">Message.</param>
+        </member>
+        <member name="T:SWNetwork.SWSyncConflict">
+            <summary>
+            Sync conflict.
+            </summary>
+        </member>
+        <member name="F:SWNetwork.SWSyncConflict.oldLocalValue">
+            <summary>
+            The old local value.
+            </summary>
+        </member>
+        <member name="F:SWNetwork.SWSyncConflict.newLocalValue">
+            <summary>
+            The new local value.
+            </summary>
+        </member>
+        <member name="F:SWNetwork.SWSyncConflict.remoteValue">
+            <summary>
+            The remote value.
+            </summary>
+        </member>
+        <member name="F:SWNetwork.SWSyncConflict.type">
+            <summary>
+            The type of the Synced Property.
+            </summary>
+        </member>
+        <member name="M:SWNetwork.SWSyncConflict.GetRemoteTinyJsonValue``1">
+            <summary>
+            Gets the deserialized remote tiny json value.
+            </summary>
+            <returns>The remote tiny json value.</returns>
+            <typeparam name="T">The 1st type parameter.</typeparam>
+        </member>
+        <member name="M:SWNetwork.SWSyncConflict.GetRemoteValue``1">
+            <summary>
+            Gets the deserialized remote value.
+            </summary>
+            <returns>The remote value.</returns>
+            <typeparam name="T">The 1st type parameter.</typeparam>
+        </member>
+        <member name="P:SWNetwork.SWSyncedProperty.Busy">
+            <summary>
+            Gets a value indicating whether this <see cref="T:SWNetwork.SWSyncedProperty"/> is busy.
+            Synced Property is busy if it is uploading its local value to the server.
+            If you modify a Synced Property that is busy, the new value will be buffered. 
+            Note: Only the new value of the last modification is buffered and uploaded to the server.
+            </summary>
+            <value><c>true</c> if busy; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:SWNetwork.SWSyncedProperty.IsReady">
+            <summary>
+            Gets a value indicating whether this <see cref="T:SWNetwork.SWSyncedProperty"/> is ready to be modified.
+            </summary>
+            <value><c>true</c> if is ready; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:SWNetwork.SWSyncedProperty.version">
+            <summary>
+            Gets the version.
+            </summary>
+            <value>The version.</value>
+        </member>
+        <member name="M:SWNetwork.SWSyncedProperty.GetValue">
+            <summary>
+            Gets the value.
+            For TinyJson and Serializable Synced Properteis, the values are returned as string.
+            Use generic GetTinyJsonValue and generic GetValue to get the deserialized object of TinyJson and Serializable Synced Properteis.
+            </summary>
+        </member>
+        <member name="M:SWNetwork.SWSyncedProperty.GetIntValue">
+            <summary>
+            Gets the int value.
+            </summary>
+            <returns>The int value.</returns>
+        </member>
+        <member name="M:SWNetwork.SWSyncedProperty.GetBoolValue">
+            <summary>
+            Gets the bool value.
+            </summary>
+            <returns><c>true</c>, if bool value was gotten, <c>false</c> otherwise.</returns>
+        </member>
+        <member name="M:SWNetwork.SWSyncedProperty.GetFloatValue">
+            <summary>
+            Gets the float value.
+            </summary>
+            <returns>The float value.</returns>
+        </member>
+        <member name="M:SWNetwork.SWSyncedProperty.GetStringValue">
+            <summary>
+            Gets the string value.
+            </summary>
+            <returns>The string value.</returns>
+        </member>
+        <member name="M:SWNetwork.SWSyncedProperty.GetVector2Value">
+            <summary>
+            Gets the vector2 value.
+            </summary>
+            <returns>The vector2 value.</returns>
+        </member>
+        <member name="M:SWNetwork.SWSyncedProperty.GetVector3Value">
+            <summary>
+            Gets the vector3 value.
+            </summary>
+            <returns>The vector3 value.</returns>
+        </member>
+        <member name="M:SWNetwork.SWSyncedProperty.GetVector4Value">
+            <summary>
+            Gets the vector4 value.
+            </summary>
+            <returns>The vector4 value.</returns>
+        </member>
+        <member name="M:SWNetwork.SWSyncedProperty.GetQuaternionValue">
+            <summary>
+            Gets the quaternion value.
+            </summary>
+            <returns>The quaternion value.</returns>
+        </member>
+        <member name="M:SWNetwork.SWSyncedProperty.GetTinyJsonValue``1">
+            <summary>
+            Gets the deserialized Tiny Json object.
+            </summary>
+        </member>
+        <member name="M:SWNetwork.SWSyncedProperty.GetValue``1">
+            <summary>
+            Gets the deserialized serializable object.
+            </summary>
+        </member>
+        <member name="M:SWNetwork.SWSyncedProperty.Resolve(System.Object)">
+            <summary>
+            Resolve the sync conflict of a Synced Property with the specified value.
+            </summary>
+            <param name="value">Value.</param>
+        </member>
+        <member name="M:SWNetwork.SWSyncedPropertyAgent.Initialize">
+            <summary>
+            Attempts to initialize the SyncPropertyAgent.
+            Calling this method has no effect if the SyncPropertyAgent has already been initialized.
+            </summary>
+        </member>
+        <member name="T:SWNetwork.SceneSpawnerReadyEvent">
+            <summary>
+            Scene spawner ready event.
+            </summary>
+        </member>
+        <member name="F:SWNetwork.SceneSpawner.OnReady">
+            <summary>
+            Invoked when the Spawner is ready to spawn/destroy GameObjects.
+            Spawner will fetch the spawn history of the scene in its Start() method.
+            </summary>
+        </member>
+        <member name="F:SWNetwork.SceneSpawner.OnHostReady">
+            <summary>
+            Invoked when the Spawner is ready to spawn/destroy GameObjects.
+            Spawner will fetch the spawn history of the scene in its Start() method.
+            This event is only delivered to the host player.
+            </summary>
+        </member>
+        <member name="P:SWNetwork.SceneSpawner.IsReady">
+            <summary>
+            Gets a value indicating whether this <see cref="T:SWNetwork.SceneSpawner"/> is ready.
+            </summary>
+            <value><c>true</c> if is ready; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="M:SWNetwork.SceneSpawner.SpawnForPlayer(System.Int32,System.Int32)">
+            <summary>
+            Spawns networked GameObject for player.
+            </summary>
+            <param name="prefabIndex">Prefab index.</param>
+            <param name="spawnPointIndex">Spawn point index.</param>
+        </member>
+        <member name="M:SWNetwork.SceneSpawner.SpawnForNonPlayer(System.Int32,System.Int32)">
+            <summary>
+            Spawns networked GameObject for non-player.
+            </summary>
+            <param name="prefabIndex">Prefab index.</param>
+            <param name="spawnPointIndex">Spawn point index.</param>
+        </member>
+        <member name="M:SWNetwork.SceneSpawner.SpawnForPlayer(System.Int32,UnityEngine.Vector3,UnityEngine.Quaternion)">
+            <summary>
+            Spawns networked GameObject for player.
+            </summary>
+            <param name="prefabIndex">Prefab index.</param>
+            <param name="position">Position.</param>
+        </member>
+        <member name="M:SWNetwork.SceneSpawner.SpawnForNonPlayer(System.Int32,UnityEngine.Vector3,UnityEngine.Quaternion)">
+            <summary>
+            Spawns networked GameObject for non-player.
+            </summary>
+            <param name="prefabIndex">Prefab index.</param>
+            <param name="position">Position.</param>
+        </member>
+        <member name="M:SWNetwork.SceneSpawner.DestroyGameObject(UnityEngine.GameObject)">
+            <summary>
+            Destroies the networked GameObject across the network.
+            Use NetworkID.DestroyFixedNetworkedGameObject() to destroy FixedNetworkedGameObject
+            </summary>
+            <param name="gameObject">Game object.</param>
+        </member>
+        <member name="M:SWNetwork.SceneSpawner.Initialize">
+            <summary>
+            Attempts to initialize the SceneSpawner.
+            Calling this method has no effect if the SceneSpawner has already been initialized.
+            </summary>
+        </member>
+        <member name="M:SWNetwork.SceneSpawner.PlayerFinishedSceneSetup">
+            <summary>
+            Tell the spawner that we have finished setting up the scene. you will get a true boolean flag for the OnReady event when the SceneSpawn becomes ready next time.
+            </summary>
+        </member>
+        <member name="M:SWNetwork.SceneSpawner.HostFinishedSceneSetup">
+            <summary>
+            Tell the spawner that we have finished setting up the scene. you will get a true boolean flag for the OnHostReady event when the SceneSpawn becomes ready next time.
+            </summary>
+        </member>
+        <member name="T:SWNetwork.SWNetworkMessage">
+            <summary>
+            SWNetwork message. Used to write/read a byte array.
+            </summary>
+        </member>
+        <member name="M:SWNetwork.SWNetworkMessage.#ctor">
+            <summary>
+            Initializes a new instance of SWNetworkMessage class.
+            </summary>
+        </member>
+        <member name="M:SWNetwork.SWNetworkMessage.#ctor(System.Byte[],System.Boolean)">
+            <summary>
+            Initializes a new instance of SWNetworkMessage class.
+            </summary>
+            <param name="arr">Arr.</param>
+            <param name="deepCopy">If set to <c>true</c> deep copy.</param>
+        </member>
+        <member name="M:SWNetwork.SWNetworkMessage.AllRead">
+            <summary>
+            Indicate whether the data in the message has been read completely.
+            </summary>
+        </member>
+        <member name="M:SWNetwork.SWNetworkMessage.GetLength">
+            <summary>
+            Length of the byte array of the SWNetworkMessage
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SWNetwork.SWNetworkMessage.ToArray">
+            <summary>
+            The byte array of the SWNetworkMessage
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SWNetwork.SWNetworkMessage.Push(System.Boolean)">
+            <summary>
+            Push a boolean value to the message
+            </summary>
+        </member>
+        <member name="M:SWNetwork.SWNetworkMessage.Push(System.Byte)">
+            <summary>
+            Push a byte value to the message
+            </summary>
+        </member>
+        <member name="M:SWNetwork.SWNetworkMessage.Push(System.SByte)">
+            <summary>
+            Push a sbyte value to the message
+            </summary>
+        </member>
+        <member name="M:SWNetwork.SWNetworkMessage.Push(System.Int16)">
+            <summary>
+            Push an Int16 value to the message
+            </summary>
+        </member>
+        <member name="M:SWNetwork.SWNetworkMessage.Push(System.Int32)">
+            <summary>
+            Push an Int32 value to the message
+            </summary>
+        </member>
+        <member name="M:SWNetwork.SWNetworkMessage.Push(System.Int64)">
+            <summary>
+            Push an Int64 value to the message
+            </summary>
+        </member>
+        <member name="M:SWNetwork.SWNetworkMessage.Push(System.UInt16)">
+            <summary>
+            Push an UInt16 value to the message
+            </summary>
+        </member>
+        <member name="M:SWNetwork.SWNetworkMessage.Push(System.UInt32)">
+            <summary>
+            Push an UInt32 value to the message
+            </summary>
+        </member>
+        <member name="M:SWNetwork.SWNetworkMessage.PushUTF8ShortString(System.String)">
+            <summary>
+            Push an UTF8 string value to the message. Max string length is 256.
+            </summary>
+        </member>
+        <member name="M:SWNetwork.SWNetworkMessage.PushUTF8LongString(System.String)">
+            <summary>
+            Push an UTF8 string value to the message. Max string length is 65,535.
+            </summary>
+        </member>
+        <member name="M:SWNetwork.SWNetworkMessage.PushByteArray(System.Byte[])">
+            <summary>
+            Push a byte array to the message.
+            </summary>
+        </member>
+        <member name="M:SWNetwork.SWNetworkMessage.Push(System.Single)">
+            <summary>
+            Push a float value to the message.
+            </summary>
+        </member>
+        <member name="M:SWNetwork.SWNetworkMessage.Push(UnityEngine.Vector3)">
+            <summary>
+            Push a vector3 value to the message.
+            </summary>
+        </member>
+        <member name="M:SWNetwork.SWNetworkMessage.PopBool">
+            <summary>
+            Pop a bool value from the message.
+            </summary>
+        </member>
+        <member name="M:SWNetwork.SWNetworkMessage.PopByte">
+            <summary>
+            Pop a byte value from the message.
+            </summary>
+        </member>
+        <member name="M:SWNetwork.SWNetworkMessage.PopSByte">
+            <summary>
+            Pop a sbyte value from the message.
+            </summary>
+        </member>
+        <member name="M:SWNetwork.SWNetworkMessage.PopInt16">
+            <summary>
+            Pop an Int16 value from the message.
+            </summary>
+        </member>
+        <member name="M:SWNetwork.SWNetworkMessage.PopInt32">
+            <summary>
+            Pop an Int32 value from the message.
+            </summary>
+        </member>
+        <member name="M:SWNetwork.SWNetworkMessage.PopUInt16">
+            <summary>
+            Pop an UInt16 value from the message.
+            </summary>
+        </member>
+        <member name="M:SWNetwork.SWNetworkMessage.PopUInt32">
+            <summary>
+            Pop an UInt32 value from the message.
+            </summary>
+        </member>
+        <member name="M:SWNetwork.SWNetworkMessage.PopUTF8ShortString">
+            <summary>
+            Pop a UTF8 string value from the message. Max length is 256.
+            </summary>
+        </member>
+        <member name="M:SWNetwork.SWNetworkMessage.PopUTF8LongString">
+            <summary>
+            Pop a UTF8 string value from the message. Max length is 65,535.
+            </summary>
+        </member>
+        <member name="M:SWNetwork.SWNetworkMessage.PopByteArray(System.Byte)">
+            <summary>
+            Pop a byte array from the message with the specified size. Max size is 256.
+            </summary>
+        </member>
+        <member name="M:SWNetwork.SWNetworkMessage.PopByteArray(System.UInt16)">
+            <summary>
+            Pop a byte array from the message with the specified size. Max size is 65,535.
+            </summary>
+        </member>
+        <member name="M:SWNetwork.SWNetworkMessage.PopFloat">
+            <summary>
+            Pop a float value from the message.
+            </summary>
+        </member>
+        <member name="M:SWNetwork.SWNetworkMessage.PopVector3">
+            <summary>
+            Pop a Vector3 value from the message.
+            </summary>
+        </member>
+        <member name="F:SWNetwork.SWPlayerData.R">
+            <summary>
+            room playerId
+            </summary>
+        </member>
+        <member name="F:SWNetwork.SWPlayerData.P">
+            <summary>
+            remote playerId
+            </summary>
+        </member>
+        <member name="F:SWNetwork.SWSpawnerRecord.n">
+            <summary>
+            networkObjectId
+            </summary>
+        </member>
+        <member name="F:SWNetwork.SWSpawnerRecord.p">
+            <summary>
+            prefab index
+            </summary>
+        </member>
+        <member name="F:SWNetwork.SWSpawnerRecord.s">
+            <summary>
+            spawnPoint index
+            </summary>
+        </member>
+        <member name="F:SWNetwork.SWSpawnerRecord.t">
+            <summary>
+            NetworkObjectType
+            </summary>
+        </member>
+        <member name="F:SWNetwork.SWSpawnerRecord.d">
+            <summary>
+            data string
+            </summary>
+        </member>
+        <member name="F:SWNetwork.SWSpawnerRecord.positionX">
+            <summary>
+            position.
+            </summary>
+        </member>
+        <member name="F:SWNetwork.SWSpawnerRecord.rotationX">
+            <summary>
+            rotation.
+            </summary>
+        </member>
+    </members>
+</doc>
