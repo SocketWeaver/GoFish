@@ -64,7 +64,7 @@ namespace GoFish
 
         bool working = false;
 
-        void Start()
+        void Awake()
         {
             cardAnimations = new Queue<CardAnimation>();
             InitializeDeck();
