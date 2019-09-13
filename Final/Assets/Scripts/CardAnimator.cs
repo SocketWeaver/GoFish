@@ -7,9 +7,9 @@ namespace GoFish
 {
     public class CardAnimation
     {
-        public Card card;
-        public Vector2 destination;
-        public Quaternion rotation;
+        Card card;
+        Vector2 destination;
+        Quaternion rotation;
  
         public CardAnimation(Card c, Vector2 pos)
         {
@@ -53,7 +53,7 @@ namespace GoFish
 
         public List<Card> DisplayingCards;
 
-        public Queue<CardAnimation> cardAnimations;
+        Queue<CardAnimation> cardAnimations;
 
         CardAnimation currentCardAnimation;
 

@@ -16,20 +16,20 @@ namespace GoFish
         public Vector2 Position;
         public Vector2 BookPosition;
 
-        int NumberOfDisplayingCards;
-        int NumberOfBooks;
+        int numberOfDisplayingCards;
+        int numberOfBooks;
 
         public List<Card> DisplayingCards = new List<Card>();
 
         public Vector2 NextCardPosition()
         {
-            Vector2 nextPos = Position + Vector2.right * Constants.PLAYER_CARD_POSITION_OFFSET * NumberOfDisplayingCards;
+            Vector2 nextPos = Position + Vector2.right * Constants.PLAYER_CARD_POSITION_OFFSET * numberOfDisplayingCards;
             return nextPos;
         }
 
         public Vector2 NextBookPosition()
         {
-            Vector2 nextPos = BookPosition + Vector2.right * Constants.PLAYER_BOOK_POSITION_OFFSET * NumberOfBooks;
+            Vector2 nextPos = BookPosition + Vector2.right * Constants.PLAYER_BOOK_POSITION_OFFSET * numberOfBooks;
             return nextPos;
         }
 
@@ -69,7 +69,7 @@ namespace GoFish
         {
             DisplayingCards.Add(card);
             card.OwnerId = PlayerId;
-            NumberOfDisplayingCards++;
+            numberOfDisplayingCards++;
         }
 
         public void ReceiveBook(Ranks rank, CardAnimator cardAnimator)
@@ -90,15 +90,15 @@ namespace GoFish
 
             DisplayingCards.RemoveAll(card => displayingCardsToRemove.Contains(card));
             RepositionDisplayingCards(cardAnimator);
-            NumberOfBooks++;
+            numberOfBooks++;
         }
 
         public void RepositionDisplayingCards(CardAnimator cardAnimator)
         {
-            NumberOfDisplayingCards = 0;
+            numberOfDisplayingCards = 0;
             foreach (Card card in DisplayingCards)
             {
-                NumberOfDisplayingCards++;
+                numberOfDisplayingCards++;
                 cardAnimator.AddCardAnimation(card, NextCardPosition());
             }
         }
@@ -142,7 +142,7 @@ namespace GoFish
                     DisplayingCards.Remove(card);
                     receivingPlayer.ReceiveDisplayingCard(card);
                     cardAnimator.AddCardAnimation(card, receivingPlayer.NextCardPosition());
-                    NumberOfDisplayingCards--;
+                    numberOfDisplayingCards--;
                 }
                 else
                 {

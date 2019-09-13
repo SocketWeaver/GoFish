@@ -11,21 +11,28 @@ namespace GoFish
     {
         public Text MessageText;
 
-        CardAnimator cardAnimator;
+        protected CardAnimator cardAnimator;
 
-        public GameDataManager gameDataManager;
+        [SerializeField]
+        protected GameDataManager gameDataManager;
 
         public List<Transform> PlayerPositions = new List<Transform>();
         public List<Transform> BookPositions = new List<Transform>();
 
-        Player localPlayer;
-        Player remotePlayer;
+        [SerializeField]
+        protected Player localPlayer;
+        [SerializeField]
+        protected Player remotePlayer;
 
-        Player currentTurnPlayer;
-        Player currentTurnTargetPlayer;
+        [SerializeField]
+        protected Player currentTurnPlayer;
+        [SerializeField]
+        protected Player currentTurnTargetPlayer;
 
-        Card selectedCard;
-        Ranks selectedRank;
+        [SerializeField]
+        protected Card selectedCard;
+        [SerializeField]
+        protected Ranks selectedRank;
 
         public enum GameState
         {
@@ -40,10 +47,12 @@ namespace GoFish
             GameFinished
         };
 
-        public GameState gameState = GameState.Idel;
+        [SerializeField]
+        protected GameState gameState = GameState.Idel;
 
-        private void Awake()
+        protected void Awake()
         {
+            Debug.Log("base awake");
             localPlayer = new Player();
             localPlayer.PlayerId = "offline-player";
             localPlayer.PlayerName = "Player";
@@ -60,14 +69,14 @@ namespace GoFish
             cardAnimator = FindObjectOfType<CardAnimator>();
         }
 
-        void Start()
+        protected void Start()
         {
             gameState = GameState.GameStarted;
             GameFlow();
         }
 
         //****************** Game Flow *********************//
-        public void GameFlow()
+        public virtual void GameFlow()
         {
             if (gameState > GameState.GameStarted)
             {
@@ -138,7 +147,7 @@ namespace GoFish
             }
         }
 
-        void OnGameStarted()
+        protected virtual void OnGameStarted()
         {
             gameDataManager = new GameDataManager(localPlayer, remotePlayer);
             gameDataManager.Shuffle();
@@ -151,7 +160,7 @@ namespace GoFish
             gameState = GameState.TurnStarted;
         }
 
-        void OnTurnStarted()
+        protected virtual void OnTurnStarted()
         {
             SwitchTurn();
             gameState = GameState.TurnSelectingNumber;
@@ -369,7 +378,7 @@ namespace GoFish
         }
 
         //****************** Animator Event *********************//
-        public void AllAnimationsFinished()
+        public virtual void AllAnimationsFinished()
         {
             GameFlow();
         }
