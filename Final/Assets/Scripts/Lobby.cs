@@ -34,6 +34,7 @@ namespace GoFish
             HideAllPopover();
             NetworkClient.Lobby.OnLobbyConnectedEvent += OnLobbyConnected;
             NetworkClient.Lobby.OnNewPlayerJoinRoomEvent += OnNewPlayerJoinRoomEvent;
+            NetworkClient.Lobby.OnRoomReadyEvent += OnRoomReadyEvent;
         }
 
         private void OnDestroy()
@@ -178,9 +179,34 @@ namespace GoFish
             });
         }
 
+        void StartRoom()
+        {
+            NetworkClient.Lobby.StartRoom((successful, error) => {
+                if (successful)
+                {
+                    Debug.Log("Started room.");
+                }
+                else
+                {
+                    Debug.Log("Failed to start room " + error);
+                }
+            });
+        }
+
         void ConnectToRoom()
         {
-            // TODO: connect to the game server of the room.
+            // connect to the game server of the room.
+            NetworkClient.Instance.ConnectToRoom((connected) =>
+            {
+                if (connected)
+                {
+                    SceneManager.LoadScene("MultiplayerGameScene");
+                }
+                else
+                {
+                    Debug.Log("Failed to connect to the game server.");
+                }
+            });
         }
 
         //****************** Lobby events *********************//
@@ -195,6 +221,11 @@ namespace GoFish
             {
                 ShowReadyToStartUI();
             }
+        }
+
+        void OnRoomReadyEvent(SWRoomReadyEventData eventData)
+        {
+            ConnectToRoom();
         }
 
         //****************** UI event handlers *********************//
@@ -245,7 +276,8 @@ namespace GoFish
             }
             else
             {
-                // TODO: Start room
+                // Start room
+                StartRoom();
             }
         }
 
