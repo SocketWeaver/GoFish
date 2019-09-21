@@ -25,6 +25,11 @@ namespace GoFish
         string player1Id;
         [SerializeField]
         string player2Id;
+        [SerializeField]
+        string currentTurnPlayerId;
+        [SerializeField]
+        int currentGameState;
+
 
         public ProtectedData(string p1Id, string p2Id)
         {
@@ -136,6 +141,25 @@ namespace GoFish
             {
                 return player2Id;
             }
+        }
+
+        public void SetCurrentTurnPlayerId(string playerId)
+        {
+            currentTurnPlayerId = playerId;
+        }
+
+        public string GetCurrentTurnPlayerId()
+        {
+            return currentTurnPlayerId;
+        }
+
+        public void SetGameState(int gameState)
+        {
+            currentGameState = gameState;
+        }
+        public int GetGameState()
+        {
+            return currentGameState;
         }
     }
 }

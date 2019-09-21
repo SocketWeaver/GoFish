@@ -171,5 +171,47 @@ namespace GoFish
 
             return Card.GetRank(playerCards[index]);
         }
+
+        public void SetCurrentTurnPlayer(Player player)
+        {
+            protectedData.SetCurrentTurnPlayerId(player.PlayerId);
+        }
+
+        public Player GetCurrentTurnPlayer()
+        {
+            string playerId = protectedData.GetCurrentTurnPlayerId();
+            if (localPlayer.PlayerId.Equals(playerId))
+            {
+                return localPlayer;
+            }
+            else
+            {
+                return remotePlayer;
+            }
+        }
+
+        public Player GetCurrentTurnTargetPlayer()
+        {
+            string playerId = protectedData.GetCurrentTurnPlayerId();
+            if (localPlayer.PlayerId.Equals(playerId))
+            {
+                return remotePlayer;
+            }
+            else
+            {
+                return localPlayer;
+            }
+        }
+
+        public void SetGameState(Game.GameState gameState)
+        {
+            protectedData.SetGameState((int)gameState);
+        }
+
+        public Game.GameState GetGameState()
+        {
+            return (Game.GameState)protectedData.GetGameState();
+        }
+
     }
 }
