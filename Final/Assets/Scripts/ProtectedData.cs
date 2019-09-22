@@ -35,6 +35,7 @@ namespace GoFish
         {
             player1Id = p1Id;
             player2Id = p2Id;
+            currentTurnPlayerId = "";
         }
 
         public void SetPoolOfCards(List<byte> cardValues)
