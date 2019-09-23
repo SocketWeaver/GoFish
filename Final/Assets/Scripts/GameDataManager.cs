@@ -6,6 +6,12 @@ using UnityEngine;
 namespace GoFish
 {
     [Serializable]
+    public class EncryptedData
+    {
+        public byte[] data;
+    }
+
+    [Serializable]
     public class GameDataManager
     {
         Player localPlayer;
@@ -213,5 +219,24 @@ namespace GoFish
             return (Game.GameState)protectedData.GetGameState();
         }
 
+        public EncryptedData EncryptedData()
+        {
+            Byte[] data = protectedData.ToArray();
+
+            EncryptedData encryptedData = new EncryptedData();
+            encryptedData.data = data;
+
+            return encryptedData;
+        }
+
+        public void ApplyEncrptedData(EncryptedData encryptedData)
+        {
+            if(encryptedData == null)
+            {
+                return;
+            }
+
+            protectedData.ApplyByteArray(encryptedData.data);
+        }
     }
 }

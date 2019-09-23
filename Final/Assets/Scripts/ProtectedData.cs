@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using SWNetwork;
 using UnityEngine;
 
 namespace GoFish
@@ -161,6 +163,52 @@ namespace GoFish
         public int GetGameState()
         {
             return currentGameState;
+        }
+
+        public Byte[] ToArray()
+        {
+            SWNetworkMessage message = new SWNetworkMessage();
+            message.Push((Byte)poolOfCards.Count);
+            message.PushByteArray(poolOfCards.ToArray());
+
+            message.Push((Byte)player1Cards.Count);
+            message.PushByteArray(player1Cards.ToArray());
+
+            message.Push((Byte)player2Cards.Count);
+            message.PushByteArray(player2Cards.ToArray());
+
+            message.Push(numberOfBooksForPlayer1);
+            message.Push(numberOfBooksForPlayer2);
+
+            message.PushUTF8ShortString(player1Id);
+            message.PushUTF8ShortString(player2Id);
+
+            message.PushUTF8ShortString(currentTurnPlayerId);
+            message.Push(currentGameState);
+
+            return message.ToArray();
+        }
+
+        public void ApplyByteArray(Byte[] byteArray)
+        {
+            SWNetworkMessage message = new SWNetworkMessage(byteArray);
+            byte poolOfCardsCount = message.PopByte();
+            poolOfCards = message.PopByteArray(poolOfCardsCount).ToList();
+
+            byte player1CardsCount = message.PopByte();
+            player1Cards = message.PopByteArray(player1CardsCount).ToList();
+
+            byte player2CardsCount = message.PopByte();
+            player2Cards = message.PopByteArray(player2CardsCount).ToList();
+
+            numberOfBooksForPlayer1 = message.PopInt32();
+            numberOfBooksForPlayer2 = message.PopInt32();
+
+            player1Id = message.PopUTF8ShortString();
+            player2Id = message.PopUTF8ShortString();
+
+            currentTurnPlayerId = message.PopUTF8ShortString();
+            currentGameState = message.PopInt32();
         }
     }
 }

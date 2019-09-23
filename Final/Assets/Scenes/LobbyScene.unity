@@ -1174,7 +1174,7 @@ MonoBehaviour:
   m_Script: {fileID: -1755967976, guid: 6a67afbfe15ab9c4696e982c25d07a84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LoggingLevel: 3
+  LoggingLevel: 0
   API_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZDczM2Q5YzQwZjlhYjAwMTlhMzhmYmQiLCJzdGFnZSI6MTU2NzgzMzUwMDMwMCwiaWF0IjoxNTY3ODMzNTAwfQ.HTkd74YG8DR0_2SIYsAHEo125E2G_7saifRjn1nciSQ
   LogFilePath: 
 --- !u!1 &762591145
