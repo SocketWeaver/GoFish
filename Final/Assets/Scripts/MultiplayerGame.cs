@@ -12,6 +12,8 @@ namespace GoFish
         protected new void Awake()
         {
             base.Awake();
+            remotePlayer.IsAI = false;
+
             netCode = FindObjectOfType<NetCode>();
 
             NetworkClient.Lobby.GetPlayersInRoom((successful, reply, error) =>
