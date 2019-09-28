@@ -1025,6 +1025,21 @@
             </summary>
             <value><c>true</c> if is ready; otherwise, <c>false</c>.</value>
         </member>
+        <member name="P:SWNetwork.SceneSpawner.NumberOfPlayerPrefabs">
+            <summary>
+            Number of player prefabs
+            </summary>
+        </member>
+        <member name="P:SWNetwork.SceneSpawner.NumberOfSpawnPoints">
+            <summary>
+            Number of spawn points
+            </summary>
+        </member>
+        <member name="P:SWNetwork.SceneSpawner.NumberOfNonPlayerPrefabs">
+            <summary>
+            Number of non-player prefabs
+            </summary>
+        </member>
         <member name="M:SWNetwork.SceneSpawner.SpawnForPlayer(System.Int32,System.Int32)">
             <summary>
             Spawns networked GameObject for player.

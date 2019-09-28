@@ -31,13 +31,15 @@ namespace GoFish
         string currentTurnPlayerId;
         [SerializeField]
         int currentGameState;
-
+        [SerializeField]
+        int selectedRank;
 
         public ProtectedData(string p1Id, string p2Id)
         {
             player1Id = p1Id;
             player2Id = p2Id;
             currentTurnPlayerId = "";
+            selectedRank = (int)Ranks.NoRanks;
         }
 
         public void SetPoolOfCards(List<byte> cardValues)
@@ -165,6 +167,16 @@ namespace GoFish
             return currentGameState;
         }
 
+        public void SetSelectedRank(int rank)
+        {
+            selectedRank = rank;
+        }
+
+        public int GetSelectedRank()
+        {
+            return selectedRank;
+        }
+
         public Byte[] ToArray()
         {
             SWNetworkMessage message = new SWNetworkMessage();
@@ -185,6 +197,8 @@ namespace GoFish
 
             message.PushUTF8ShortString(currentTurnPlayerId);
             message.Push(currentGameState);
+
+            message.Push(selectedRank);
 
             return message.ToArray();
         }
@@ -209,6 +223,8 @@ namespace GoFish
 
             currentTurnPlayerId = message.PopUTF8ShortString();
             currentGameState = message.PopInt32();
+
+            selectedRank = message.PopInt32();
         }
     }
 }

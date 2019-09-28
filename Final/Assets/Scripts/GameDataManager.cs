@@ -219,6 +219,16 @@ namespace GoFish
             return (Game.GameState)protectedData.GetGameState();
         }
 
+        public void SetSelectedRank(Ranks rank)
+        {
+            protectedData.SetSelectedRank((int)rank);
+        }
+
+        public Ranks GetSelectedRank()
+        {
+            return (Ranks)protectedData.GetSelectedRank();
+        }
+
         public EncryptedData EncryptedData()
         {
             Byte[] data = protectedData.ToArray();

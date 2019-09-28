@@ -188,7 +188,7 @@ namespace GoFish
             }
         }
 
-        public void OnTurnConfirmedSelectedNumber()
+        protected virtual void OnTurnConfirmedSelectedNumber()
         {
             if (currentTurnPlayer == localPlayer)
             {
@@ -279,7 +279,7 @@ namespace GoFish
             }
         }
 
-        void SetMessage(string message)
+        protected void SetMessage(string message)
         {
             MessageText.text = message;
         }
@@ -360,7 +360,7 @@ namespace GoFish
             }
         }
 
-        public void OnOkSelected()
+        public virtual void OnOkSelected()
         {
             if (gameState == GameState.TurnSelectingNumber && localPlayer == currentTurnPlayer)
             {

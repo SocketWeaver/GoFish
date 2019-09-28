@@ -13,6 +13,12 @@ namespace GoFish
 
     }
 
+    [Serializable]
+    public class RankSelectedEvent : UnityEvent<Ranks>
+    {
+
+    }
+
     public class NetCode : MonoBehaviour
     {
         public GameDataEvent OnGameDataReadyEvent = new GameDataEvent();
@@ -20,11 +26,14 @@ namespace GoFish
 
         public UnityEvent OnGameStateChangedEvent = new UnityEvent();
 
+        public RankSelectedEvent OnRankSelectedEvent = new RankSelectedEvent();
+
         RoomPropertyAgent roomPropertyAgent;
         RoomRemoteEventAgent roomRemoteEventAgent;
 
         const string ENCRYPTED_DATA = "EncryptedData";
         const string GAME_STATE_CHANGED = "GameStateChanged";
+        const string RANK_SELECTED = "RankSelected";
 
         public void ModifyGameData(EncryptedData encryptedData)
         {
@@ -34,6 +43,13 @@ namespace GoFish
         public void NotifyOtherPlayersGameStateChanged()
         {
             roomRemoteEventAgent.Invoke(GAME_STATE_CHANGED);
+        }
+
+        public void NotifyHostPlayerRankSelected(int selectedRank)
+        {
+            SWNetworkMessage message = new SWNetworkMessage();
+            message.Push(selectedRank);
+            roomRemoteEventAgent.Invoke(RANK_SELECTED, message);
         }
 
         public void EnableRoomPropertyAgent()
@@ -66,6 +82,12 @@ namespace GoFish
         public void OnGameStateChangedRemoteEvent()
         {
             OnGameStateChangedEvent.Invoke();
+        }
+
+        public void OnRankSelectedRemoteEvent(SWNetworkMessage message)
+        {
+            int intRank = message.PopInt32();
+            OnRankSelectedEvent.Invoke((Ranks)intRank);
         }
     }
 }
