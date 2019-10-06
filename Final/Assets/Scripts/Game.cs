@@ -212,7 +212,7 @@ namespace GoFish
             }
         }
 
-        public void OnTurnOpponentConfirmed()
+        protected virtual void OnTurnOpponentConfirmed()
         {
             List<byte> cardValuesFromTargetPlayer = gameDataManager.TakeCardValuesWithRankFromPlayer(currentTurnTargetPlayer, selectedRank);
 
@@ -231,7 +231,7 @@ namespace GoFish
             }
         }
 
-        public void OnTurnGoFish()
+        protected virtual void OnTurnGoFish()
         {
             SetMessage($"Go fish!");
 

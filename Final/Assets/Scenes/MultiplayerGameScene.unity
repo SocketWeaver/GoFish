@@ -467,6 +467,25 @@ MonoBehaviour:
           m_CallState: 2
       m_TypeName: SWNetwork.SWRPCEvent, SWNetwork, Version=1.0.0.0, Culture=neutral,
         PublicKeyToken=null
+  - eventName: OpponentConfirmed
+    Foldout: 1
+    target: 2
+    remoteEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1105647497}
+          m_MethodName: OnOpponentConfirmedRemoteEvent
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: SWNetwork.SWRPCEvent, SWNetwork, Version=1.0.0.0, Culture=neutral,
+        PublicKeyToken=null
   AgentId: 1
 --- !u!114 &721580379
 MonoBehaviour:
@@ -989,6 +1008,22 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: GoFish.RankSelectedEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
+  OnOpponentConfirmed:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1305530474}
+        m_MethodName: OnOppoentConfirmed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!4 &1105647498
 Transform:
   m_ObjectHideFlags: 0

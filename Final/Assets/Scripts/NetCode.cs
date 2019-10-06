@@ -28,12 +28,15 @@ namespace GoFish
 
         public RankSelectedEvent OnRankSelectedEvent = new RankSelectedEvent();
 
+        public UnityEvent OnOpponentConfirmed = new UnityEvent();
+
         RoomPropertyAgent roomPropertyAgent;
         RoomRemoteEventAgent roomRemoteEventAgent;
 
         const string ENCRYPTED_DATA = "EncryptedData";
         const string GAME_STATE_CHANGED = "GameStateChanged";
         const string RANK_SELECTED = "RankSelected";
+        const string OPPONENT_CONFIRMED = "OpponentConfirmed";
 
         public void ModifyGameData(EncryptedData encryptedData)
         {
@@ -50,6 +53,11 @@ namespace GoFish
             SWNetworkMessage message = new SWNetworkMessage();
             message.Push(selectedRank);
             roomRemoteEventAgent.Invoke(RANK_SELECTED, message);
+        }
+
+        public void NotifyHostPlayerOpponentConfirmed()
+        {
+            roomRemoteEventAgent.Invoke(OPPONENT_CONFIRMED);
         }
 
         public void EnableRoomPropertyAgent()
@@ -88,6 +96,11 @@ namespace GoFish
         {
             int intRank = message.PopInt32();
             OnRankSelectedEvent.Invoke((Ranks)intRank);
+        }
+
+        public void OnOpponentConfirmedRemoteEvent()
+        {
+            OnOpponentConfirmed.Invoke();
         }
     }
 }

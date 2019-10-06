@@ -113,6 +113,74 @@ namespace GoFish
             }
         }
 
+        protected override void OnTurnOpponentConfirmed()
+        {
+            List<byte> cardValuesFromTargetPlayer = gameDataManager.TakeCardValuesWithRankFromPlayer(currentTurnTargetPlayer, selectedRank);
+
+            if (cardValuesFromTargetPlayer.Count > 0)
+            {
+                gameDataManager.AddCardValuesToPlayer(currentTurnPlayer, cardValuesFromTargetPlayer);
+
+                bool senderIsLocalPlayer = currentTurnTargetPlayer == localPlayer;
+                currentTurnTargetPlayer.SendDisplayingCardToPlayer(currentTurnPlayer, cardAnimator, cardValuesFromTargetPlayer, senderIsLocalPlayer);
+
+                if (NetworkClient.Instance.IsHost)
+                {
+                    gameState = GameState.TurnSelectingNumber;
+
+                    gameDataManager.SetGameState(gameState);
+                    netCode.ModifyGameData(gameDataManager.EncryptedData());
+                }
+
+            }
+            else
+            {
+                if (NetworkClient.Instance.IsHost)
+                {
+                    gameState = GameState.TurnGoFish;
+
+                    gameDataManager.SetGameState(gameState);
+                    netCode.ModifyGameData(gameDataManager.EncryptedData());
+                    netCode.NotifyOtherPlayersGameStateChanged();
+                }
+            }
+        }
+
+        protected override void OnTurnGoFish()
+        {
+            SetMessage($"Go fish!");
+
+            byte cardValue = gameDataManager.DrawCardValue();
+
+            if (cardValue == Constants.POOL_IS_EMPTY)
+            {
+                Debug.LogError("Pool is empty");
+                return;
+            }
+
+            if (Card.GetRank(cardValue) == selectedRank)
+            {
+                cardAnimator.DrawDisplayingCard(currentTurnPlayer, cardValue);
+            }
+            else
+            {
+                cardAnimator.DrawDisplayingCard(currentTurnPlayer);
+
+                if (NetworkClient.Instance.IsHost)
+                {
+                    gameState = GameState.TurnStarted;
+                }
+            }
+
+            gameDataManager.AddCardValueToPlayer(currentTurnPlayer, cardValue);
+
+            if (NetworkClient.Instance.IsHost)
+            {
+                gameDataManager.SetGameState(gameState);
+                netCode.ModifyGameData(gameDataManager.EncryptedData());
+            }
+        }
+
         public override void AllAnimationsFinished()
         {
             if (NetworkClient.Instance.IsHost)
@@ -133,7 +201,7 @@ namespace GoFish
             }
             else if (gameState == GameState.TurnWaitingForOpponentConfirmation && localPlayer == currentTurnTargetPlayer)
             {
-
+                netCode.NotifyHostPlayerOpponentConfirmed();
             }
         }
 
@@ -171,6 +239,16 @@ namespace GoFish
             gameState = GameState.TurnConfirmedSelectedNumber;
 
             gameDataManager.SetSelectedRank(selectedRank);
+            gameDataManager.SetGameState(gameState);
+
+            netCode.ModifyGameData(gameDataManager.EncryptedData());
+            netCode.NotifyOtherPlayersGameStateChanged();
+        }
+
+        public void OnOppoentConfirmed()
+        {
+            gameState = GameState.TurnOpponentConfirmed;
+
             gameDataManager.SetGameState(gameState);
 
             netCode.ModifyGameData(gameDataManager.EncryptedData());
