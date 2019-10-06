@@ -10,6 +10,21 @@ YouTube Video Tutorial (In progress...)
 ## Part 1 https://youtu.be/vAjffnIPk2o
 Rules of Go Fish and the design of the offline version of the game.
 
+## Part 2 https://youtu.be/DaMjlJFxj8c
+Lobby and Matchmaking.
+
+## Part 3 https://youtu.be/dF5ufwMHjJY
+Online Game Scene & Server Connection.
+
+## Part 4 https://youtu.be/zCh6iPgZiBw
+Shuffle and Deal Cards.
+
+## Part 5 https://youtu.be/MIetWc7-8OE
+Turn Rotation and Card Selection.
+
+## Part 6 https://youtu.be/3Edvq6Acoh4
+Completing the Online Gameplay.
+
 ## Community
 If you have questions about the tutorial, join our discord server at: https://discord.gg/qXt7Bkf
 
