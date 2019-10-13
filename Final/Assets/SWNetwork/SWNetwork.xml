@@ -713,6 +713,14 @@
             Checking into the SocketWeaver services with specified player Id. Make sure the playerId is unique.
             </summary>
         </member>
+        <member name="M:SWNetwork.NetworkClient.CheckOut(System.Action{System.Boolean,System.String})">
+            <summary>
+            Checking out of the SocketWeaver services.
+            Disconnects from the room game servers and leaves the lobby room.
+            All gameplay API and lobby API will stop working.
+            </summary>
+            <param name="callback"></param>
+        </member>
         <member name="M:SWNetwork.NetworkClient.DisconnectFromRoom">
             <summary>
             Disconnects the local player from the room game servers.
