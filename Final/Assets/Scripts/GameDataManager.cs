@@ -20,11 +20,11 @@ namespace GoFish
         [SerializeField]
         ProtectedData protectedData;
 
-        public GameDataManager(Player local, Player remote)
+        public GameDataManager(Player local, Player remote, string roomId = "1234567890123456")
         {
             localPlayer = local;
             remotePlayer = remote;
-            protectedData = new ProtectedData(localPlayer.PlayerId, remotePlayer.PlayerId);
+            protectedData = new ProtectedData(localPlayer.PlayerId, remotePlayer.PlayerId, roomId);
         }
 
         public void Shuffle()
@@ -61,6 +61,7 @@ namespace GoFish
             poolOfCards.RemoveRange(start, numberOfCards);
 
             protectedData.AddCardValuesToPlayer(player, cardValues);
+            protectedData.SetPoolOfCards(poolOfCards);
         }
 
         public byte DrawCardValue()
@@ -73,7 +74,7 @@ namespace GoFish
             {
                 byte cardValue = poolOfCards[numberOfCardsInThePool - 1];
                 poolOfCards.Remove(cardValue);
-
+                protectedData.SetPoolOfCards(poolOfCards);
                 return cardValue;
             }
 

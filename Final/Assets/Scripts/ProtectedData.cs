@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using SWNetwork;
 using UnityEngine;
 
@@ -34,38 +35,54 @@ namespace GoFish
         [SerializeField]
         int selectedRank;
 
-        public ProtectedData(string p1Id, string p2Id)
+        byte[] encryptionKey;
+        byte[] safeData;
+
+        public ProtectedData(string p1Id, string p2Id, string roomId)
         {
             player1Id = p1Id;
             player2Id = p2Id;
             currentTurnPlayerId = "";
             selectedRank = (int)Ranks.NoRanks;
+            CalculateKey(roomId);
+            Encrypt();
         }
 
         public void SetPoolOfCards(List<byte> cardValues)
         {
+            Decrypt();
             poolOfCards = cardValues;
+            Encrypt();
         }
 
         public List<byte> GetPoolOfCards()
         {
-            return poolOfCards;
+            List<byte> result;
+            Decrypt();
+            result = poolOfCards;
+            Encrypt();
+            return result;
         }
 
         public List<byte> PlayerCards(Player player)
         {
+            List<byte> result;
+            Decrypt();
             if (player.PlayerId.Equals(player1Id))
             {
-                return player1Cards;
+                result = player1Cards;
             }
             else
             {
-                return player2Cards;
+                result = player2Cards;
             }
+            Encrypt();
+            return result;
         }
 
         public void AddCardValuesToPlayer(Player player, List<byte> cardValues)
         {
+            Decrypt();
             if (player.PlayerId.Equals(player1Id))
             {
                 player1Cards.AddRange(cardValues);
@@ -76,10 +93,12 @@ namespace GoFish
                 player2Cards.AddRange(cardValues);
                 player2Cards.Sort();
             }
+            Encrypt();
         }
 
         public void AddCardValueToPlayer(Player player, byte cardValue)
         {
+            Decrypt();
             if (player.PlayerId.Equals(player1Id))
             {
                 player1Cards.Add(cardValue);
@@ -90,10 +109,12 @@ namespace GoFish
                 player2Cards.Add(cardValue);
                 player2Cards.Sort();
             }
+            Encrypt();
         }
 
         public void RemoveCardValuesFromPlayer(Player player, List<byte> cardValuesToRemove)
         {
+            Decrypt();
             if (player.PlayerId.Equals(player1Id))
             {
                 player1Cards.RemoveAll(cv => cardValuesToRemove.Contains(cv));
@@ -102,10 +123,12 @@ namespace GoFish
             {
                 player2Cards.RemoveAll(cv => cardValuesToRemove.Contains(cv));
             }
+            Encrypt();
         }
 
         public void AddBooksForPlayer(Player player, int numberOfNewBooks)
         {
+            Decrypt();
             if (player.PlayerId.Equals(player1Id))
             {
                 numberOfBooksForPlayer1 += numberOfNewBooks;
@@ -114,70 +137,112 @@ namespace GoFish
             {
                 numberOfBooksForPlayer2 += numberOfNewBooks;
             }
+            Encrypt();
         }
 
         public bool GameFinished()
         {
+            bool result = false;
+            Decrypt();
             if (poolOfCards.Count == 0)
             {
-                return true;
+                result = true;
             }
 
             if (player1Cards.Count == 0)
             {
-                return true;
+                result = true;
             }
 
             if (player2Cards.Count == 0)
             {
-                return true;
+                result = true;
             }
+            Encrypt();
 
-            return false;
+            return result;
         }
 
         public string WinnerPlayerId()
         {
+            string result;
+            Decrypt();
             if (numberOfBooksForPlayer1 > numberOfBooksForPlayer2)
             {
-                return player1Id;
+                result = player1Id;
             }
             else
             {
-                return player2Id;
+                result = player2Id;
             }
+            Encrypt();
+            return result;
         }
 
         public void SetCurrentTurnPlayerId(string playerId)
         {
+            Decrypt();
             currentTurnPlayerId = playerId;
+            Encrypt();
         }
 
         public string GetCurrentTurnPlayerId()
         {
-            return currentTurnPlayerId;
+            string result;
+            Decrypt();
+            result = currentTurnPlayerId;
+            Encrypt();
+            return result;
         }
 
         public void SetGameState(int gameState)
         {
+            Decrypt();
             currentGameState = gameState;
+            Encrypt();
         }
         public int GetGameState()
         {
-            return currentGameState;
+            int result;
+            Decrypt();
+            result = currentGameState;
+            Encrypt();
+            return result;
         }
 
         public void SetSelectedRank(int rank)
         {
+            Decrypt();
             selectedRank = rank;
+            Encrypt();
         }
 
         public int GetSelectedRank()
         {
-            return selectedRank;
+            int result;
+            Decrypt();
+            result = selectedRank;
+            Encrypt();
+            return result;
         }
 
         public Byte[] ToArray()
+        {
+            return safeData;
+        }
+
+        public void ApplyByteArray(Byte[] byteArray)
+        {
+            safeData = byteArray;
+        }
+
+        void CalculateKey(string roomId)
+        {
+            string roomIdSubString = roomId.Substring(0, 16);
+            encryptionKey = Encoding.UTF8.GetBytes(roomIdSubString);
+        }
+
+        void Encrypt()
         {
             SWNetworkMessage message = new SWNetworkMessage();
             message.Push((Byte)poolOfCards.Count);
@@ -200,11 +265,24 @@ namespace GoFish
 
             message.Push(selectedRank);
 
-            return message.ToArray();
+            safeData = AES.EncryptAES128(message.ToArray(), encryptionKey);
+
+            poolOfCards = new List<byte>();
+            player1Cards = new List<byte>();
+            player2Cards = new List<byte>();
+            numberOfBooksForPlayer1 = 0;
+            numberOfBooksForPlayer2 = 0;
+            player1Id = null;
+            player2Id = null;
+            currentTurnPlayerId = null;
+            currentGameState = 0;
+            selectedRank = 0;
         }
 
-        public void ApplyByteArray(Byte[] byteArray)
+        void Decrypt()
         {
+            byte[] byteArray = AES.DecryptAES128(safeData, encryptionKey);
+
             SWNetworkMessage message = new SWNetworkMessage(byteArray);
             byte poolOfCardsCount = message.PopByte();
             poolOfCards = message.PopByteArray(poolOfCardsCount).ToList();

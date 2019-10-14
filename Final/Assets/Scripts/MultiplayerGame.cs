@@ -37,7 +37,7 @@ namespace GoFish
                         }
                     }
 
-                    gameDataManager = new GameDataManager(localPlayer, remotePlayer);
+                    gameDataManager = new GameDataManager(localPlayer, remotePlayer, NetworkClient.Lobby.RoomId);
                     netCode.EnableRoomPropertyAgent();
                 }
                 else
