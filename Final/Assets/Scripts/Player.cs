@@ -93,6 +93,28 @@ namespace GoFish
             numberOfBooks++;
         }
 
+
+        public void RestoreBook(Ranks rank, CardAnimator cardAnimator)
+        {
+            Vector2 targetPosition = NextBookPosition();
+
+            for (int i = 0; i < 4; i++)
+            {
+                Card card = cardAnimator.TakeFirstDisplayingCard();
+
+                int intRankValue = (int)rank;
+                int cardValue = (intRankValue - 1) * 4 + i;
+
+                card.SetCardValue((byte)cardValue);
+                card.SetFaceUp(true);
+                float randomRotation = UnityEngine.Random.Range(-1 * Constants.BOOK_MAX_RANDOM_ROTATION, Constants.BOOK_MAX_RANDOM_ROTATION);
+                card.transform.position = targetPosition;
+                card.transform.rotation = Quaternion.Euler(Vector3.forward * randomRotation);
+            }
+
+            numberOfBooks++;
+        }
+
         public void RepositionDisplayingCards(CardAnimator cardAnimator)
         {
             numberOfDisplayingCards = 0;

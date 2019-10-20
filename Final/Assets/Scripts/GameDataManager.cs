@@ -86,6 +86,11 @@ namespace GoFish
             return protectedData.PlayerCards(player);
         }
 
+        public List<byte> PlayerBooks(Player player)
+        {
+            return protectedData.PlayerBooks(player);
+        }
+
         public void AddCardValuesToPlayer(Player player, List<byte> cardValues)
         {
             protectedData.AddCardValuesToPlayer(player, cardValues);
@@ -101,9 +106,9 @@ namespace GoFish
             protectedData.RemoveCardValuesFromPlayer(player, cardValuesToRemove);
         }
 
-        public void AddBooksForPlayer(Player player, int numberOfNewBooks)
+        public void AddBooksForPlayer(Player player, Ranks ranks)
         {
-            protectedData.AddBooksForPlayer(player, numberOfNewBooks);
+            protectedData.AddBooksForPlayer(player, ranks);
         }
 
         public Player Winner()

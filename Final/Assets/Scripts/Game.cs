@@ -316,9 +316,8 @@ namespace GoFish
                     player.ReceiveBook(book.Key, cardAnimator);
 
                     gameDataManager.RemoveCardValuesFromPlayer(player, book.Value);
+                    gameDataManager.AddBooksForPlayer(player, book.Key);
                 }
-
-                gameDataManager.AddBooksForPlayer(player, books.Count);
             }
         }
 

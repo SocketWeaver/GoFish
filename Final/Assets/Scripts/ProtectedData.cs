@@ -21,9 +21,9 @@ namespace GoFish
         [SerializeField]
         List<byte> player2Cards = new List<byte>();
         [SerializeField]
-        int numberOfBooksForPlayer1;
+        List<byte> booksForPlayer1 = new List<byte>();
         [SerializeField]
-        int numberOfBooksForPlayer2;
+        List<byte> booksForPlayer2 = new List<byte>();
         [SerializeField]
         string player1Id;
         [SerializeField]
@@ -80,6 +80,22 @@ namespace GoFish
             return result;
         }
 
+        public List<byte> PlayerBooks(Player player)
+        {
+            List<byte> result;
+            Decrypt();
+            if (player.PlayerId.Equals(player1Id))
+            {
+                result = booksForPlayer1;
+            }
+            else
+            {
+                result = booksForPlayer2;
+            }
+            Encrypt();
+            return result;
+        }
+
         public void AddCardValuesToPlayer(Player player, List<byte> cardValues)
         {
             Decrypt();
@@ -126,16 +142,16 @@ namespace GoFish
             Encrypt();
         }
 
-        public void AddBooksForPlayer(Player player, int numberOfNewBooks)
+        public void AddBooksForPlayer(Player player, Ranks ranks)
         {
             Decrypt();
             if (player.PlayerId.Equals(player1Id))
             {
-                numberOfBooksForPlayer1 += numberOfNewBooks;
+                booksForPlayer1.Add((byte)ranks);
             }
             else
             {
-                numberOfBooksForPlayer2 += numberOfNewBooks;
+                booksForPlayer2.Add((byte)ranks);
             }
             Encrypt();
         }
@@ -167,7 +183,7 @@ namespace GoFish
         {
             string result;
             Decrypt();
-            if (numberOfBooksForPlayer1 > numberOfBooksForPlayer2)
+            if (booksForPlayer1.Count > booksForPlayer2.Count)
             {
                 result = player1Id;
             }
@@ -254,8 +270,11 @@ namespace GoFish
             message.Push((Byte)player2Cards.Count);
             message.PushByteArray(player2Cards.ToArray());
 
-            message.Push(numberOfBooksForPlayer1);
-            message.Push(numberOfBooksForPlayer2);
+            message.Push((Byte)booksForPlayer1.Count);
+            message.PushByteArray(booksForPlayer1.ToArray());
+
+            message.Push((Byte)booksForPlayer2.Count);
+            message.PushByteArray(booksForPlayer2.ToArray());
 
             message.PushUTF8ShortString(player1Id);
             message.PushUTF8ShortString(player2Id);
@@ -270,8 +289,8 @@ namespace GoFish
             poolOfCards = new List<byte>();
             player1Cards = new List<byte>();
             player2Cards = new List<byte>();
-            numberOfBooksForPlayer1 = 0;
-            numberOfBooksForPlayer2 = 0;
+            booksForPlayer1 = new List<byte>();
+            booksForPlayer2 = new List<byte>();
             player1Id = null;
             player2Id = null;
             currentTurnPlayerId = null;
@@ -293,8 +312,11 @@ namespace GoFish
             byte player2CardsCount = message.PopByte();
             player2Cards = message.PopByteArray(player2CardsCount).ToList();
 
-            numberOfBooksForPlayer1 = message.PopInt32();
-            numberOfBooksForPlayer2 = message.PopInt32();
+            byte booksForPlayer1Count = message.PopByte();
+            booksForPlayer1 = message.PopByteArray(booksForPlayer1Count).ToList();
+
+            byte booksForPlayer2Count = message.PopByte();
+            booksForPlayer2 = message.PopByteArray(booksForPlayer2Count).ToList();
 
             player1Id = message.PopUTF8ShortString();
             player2Id = message.PopUTF8ShortString();

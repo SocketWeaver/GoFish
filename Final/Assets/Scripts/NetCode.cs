@@ -30,6 +30,8 @@ namespace GoFish
 
         public UnityEvent OnOpponentConfirmed = new UnityEvent();
 
+        public UnityEvent OnLeftRoom = new UnityEvent();
+
         RoomPropertyAgent roomPropertyAgent;
         RoomRemoteEventAgent roomRemoteEventAgent;
 
@@ -63,6 +65,24 @@ namespace GoFish
         public void EnableRoomPropertyAgent()
         {
             roomPropertyAgent.Initialize();
+        }
+
+        public void LeaveRoom()
+        {
+            NetworkClient.Instance.DisconnectFromRoom();
+            NetworkClient.Lobby.LeaveRoom((successful, error) => {
+
+                if (successful)
+                {
+                    Debug.Log("Left room");
+                }
+                else
+                {
+                    Debug.Log($"Failed to leave room {error}");
+                }
+
+                OnLeftRoom.Invoke();
+            });
         }
 
         private void Awake()

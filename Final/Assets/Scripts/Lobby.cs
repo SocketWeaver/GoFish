@@ -121,7 +121,7 @@ namespace GoFish
 
         void JoinOrCreateRoom()
         {
-            NetworkClient.Lobby.JoinOrCreateRoom(false, 2, 0, (successful, reply, error) => {
+            NetworkClient.Lobby.JoinOrCreateRoom(false, 2, 60, (successful, reply, error) => {
                 if (successful)
                 {
                     Debug.Log("Joined or created room " + reply);

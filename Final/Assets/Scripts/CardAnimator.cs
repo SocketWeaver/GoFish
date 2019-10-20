@@ -86,7 +86,22 @@ namespace GoFish
             }
         }
 
-        public void DealDisplayingCards(Player player, int numberOfCard)
+        public Card TakeFirstDisplayingCard()
+        {
+            int numberOfDisplayingCard = DisplayingCards.Count;
+
+            if (numberOfDisplayingCard > 0)
+            {
+                Card card = DisplayingCards[numberOfDisplayingCard - 1];
+                DisplayingCards.Remove(card);
+
+                return card;
+            }
+
+            return null;
+        }
+
+        public void DealDisplayingCards(Player player, int numberOfCard, bool animated = true)
         {
             int start = DisplayingCards.Count - 1;
             int finish = DisplayingCards.Count - 1 - numberOfCard;
@@ -98,7 +113,14 @@ namespace GoFish
                 Card card = DisplayingCards[i];
                 player.ReceiveDisplayingCard(card);
                 cardsToRemoveFromDeck.Add(card);
-                AddCardAnimation(card, player.NextCardPosition());
+                if (animated)
+                {
+                    AddCardAnimation(card, player.NextCardPosition());
+                }
+                else
+                {
+                    card.transform.position = player.NextCardPosition();
+                }
             }
 
             foreach (Card card in cardsToRemoveFromDeck)

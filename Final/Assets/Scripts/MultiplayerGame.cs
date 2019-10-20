@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using SWNetwork;
+using UnityEngine.SceneManagement;
 
 namespace GoFish
 {
@@ -203,19 +204,59 @@ namespace GoFish
             {
                 netCode.NotifyHostPlayerOpponentConfirmed();
             }
+            else if (gameState == GameState.GameFinished)
+            {
+                netCode.LeaveRoom();
+            }
         }
 
         //****************** NetCode Events *********************//
         public void OnGameDataReady(EncryptedData encryptedData)
         {
-            if (NetworkClient.Instance.IsHost)
+            if(encryptedData == null)
             {
-                gameState = GameState.GameStarted;
-                gameDataManager.SetGameState(gameState);
+                Debug.Log("New game");
+                if (NetworkClient.Instance.IsHost)
+                {
+                    gameState = GameState.GameStarted;
+                    gameDataManager.SetGameState(gameState);
 
-                netCode.ModifyGameData(gameDataManager.EncryptedData());
+                    netCode.ModifyGameData(gameDataManager.EncryptedData());
 
-                netCode.NotifyOtherPlayersGameStateChanged();
+                    netCode.NotifyOtherPlayersGameStateChanged();
+                }
+            }
+            else
+            {
+                gameDataManager.ApplyEncrptedData(encryptedData);
+                gameState = gameDataManager.GetGameState();
+                currentTurnPlayer = gameDataManager.GetCurrentTurnPlayer();
+                currentTurnTargetPlayer = gameDataManager.GetCurrentTurnTargetPlayer();
+                selectedRank = gameDataManager.GetSelectedRank();
+
+                if(gameState > GameState.GameStarted)
+                {
+                    Debug.Log("Restore the game state");
+
+                    //restore player's cards
+                    cardAnimator.DealDisplayingCards(localPlayer, gameDataManager.PlayerCards(localPlayer).Count, false);
+                    cardAnimator.DealDisplayingCards(remotePlayer, gameDataManager.PlayerCards(remotePlayer).Count, false);
+
+                    //restore player's books
+                    List<byte> booksForLocalPlayer = gameDataManager.PlayerBooks(localPlayer);
+                    foreach(byte rank in booksForLocalPlayer)
+                    {
+                        localPlayer.RestoreBook((Ranks)rank, cardAnimator);
+                    }
+
+                    List<byte> booksForRemotePlayer = gameDataManager.PlayerBooks(remotePlayer);
+                    foreach (byte rank in booksForRemotePlayer)
+                    {
+                        remotePlayer.RestoreBook((Ranks)rank, cardAnimator);
+                    }
+
+                    base.GameFlow();
+                }
             }
         }
 
@@ -253,6 +294,11 @@ namespace GoFish
 
             netCode.ModifyGameData(gameDataManager.EncryptedData());
             netCode.NotifyOtherPlayersGameStateChanged();
+        }
+
+        public void OnLeftRoom()
+        {
+            SceneManager.LoadScene(0);
         }
     }
 }
