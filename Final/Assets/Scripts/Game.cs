@@ -36,7 +36,7 @@ namespace GoFish
 
         public enum GameState
         {
-            Idel,
+            Idle,
             GameStarted,
             TurnStarted,
             TurnSelectingNumber,
@@ -48,7 +48,7 @@ namespace GoFish
         };
 
         [SerializeField]
-        protected GameState gameState = GameState.Idel;
+        protected GameState gameState = GameState.Idle;
 
         protected void Awake()
         {
@@ -91,9 +91,9 @@ namespace GoFish
 
             switch (gameState)
             {
-                case GameState.Idel:
+                case GameState.Idle:
                     {
-                        Debug.Log("IDEL");
+                        Debug.Log("IDLE");
                         break;
                     }
                 case GameState.GameStarted:
